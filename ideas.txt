@@ -1,0 +1,33 @@
+Wild level ideas for the duck game
+(Flood Tower is being built as level 5, so it is not listed here.)
+
+1. Gravity Flip Cavern: Stepping on glowing pads flips gravity, so the duck walks on the ceiling. Coins and ledges are placed on both sides.
+2. Ice Rink: Low friction, so the duck slides and has to brake. Pea-shooter recoil pushes her backwards, so shots can steer her across gaps.
+3. Night Level: Only a small circle around the duck is visible. Fireflies reveal hidden coins, and bats hide in the dark.
+4. Conveyor Factory: Ledges are belts moving in alternating directions. You time jumps while beetles ride along.
+5. Boss Beetle: A giant beetle arena with several phases. It charges, shoots shockwaves and spawns minions, and you have to use the platforms.
+6. Cloud Hop: Clouds drift and some dissolve after about a second. Thunder gusts shove you around.
+7. Egg Heist: A fox patrols and steals your egg. Hide it in nests, lure the fox away and sneak back.
+8. Teleport Maze: Paired portals, with a few decoys that drop you in a lake. Find the real route to the summit.
+9. Time Loop: Each death replays your previous run as a ghost duck. Ghosts can press switches, so you cooperate with yourself.
+10. Wind Tunnel Sprint: A horizontal auto-scrolling level with constant gusts. Jump between moving platforms, and umbrella gliding is mandatory.
+11. Bouncy Castle: The whole floor is mushrooms with variable bounce strength. Bounce chains unlock a high secret ledge.
+12. Pond Puzzle: Move floating logs and lily pads to build a bridge. Swimming is slow and dangerous.
+13. Rhythm Level: Platforms appear and disappear on a beat, and the quack key is a beat-synced action.
+14. Giant Bread Bakery: The duck is tiny inside a gigantic kitchen. Rising dough platforms swell and collapse, and rolling pins sweep across the floor. Melted butter pools are slippery.
+15. Shrink-and-Grow Garden: Magic berries make the duck tiny or huge. Tiny fits through mouse holes, huge smashes crates and stomps beetles, and timers force you to switch at the right moment.
+16. Upside-Down Waterfall: Water flows upward in streams you can ride like elevators. Rocks fall up too, so you dodge them overhead while climbing.
+17. Moon Duck: Low gravity with floaty giant jumps. Moon rocks drift in orbit, and the pea-shooter is a big recoil rocket booster.
+18. Haunted Pond Mansion: Ghost ducklings follow you and turn into platforms when you quack. Doors lead to randomly swapped rooms, and a lantern reveals invisible bridges.
+19. Pinball Pond: The level is a giant pinball table. Bumpers launch you, flippers on the sides are controlled with left and right, and coins score multipliers.
+20. Shadow Puppet Level: The duck walks on a wall lit by a lamp. Moving the lamp changes the shadows of objects, and shadows become the platforms.
+21. Magnet Mines: Magnetic coins and metal crates pull the duck. Polarity switches flip attraction to repulsion, so you swing across gaps on magnetic rails.
+22. Snowball Avalanche: Roll a snowball downhill so it grows and crushes obstacles. Steer it to build a ramp, then jump off before the cliff.
+23. Dream Level: Rooms rearrange whenever you blink (every few seconds). Stairs loop, the exit moves, and the quack key wakes you into a different layout.
+24. Swapping Duckling Relay: Control three ducklings with different powers (flap high, swim fast, shoot). Swap between them to carry a lost egg through to the nest.
+25. Volcano Escape: Lava rises while platforms crumble. Geysers launch you upward, and cooling lava with water pistols makes temporary stepping stones.
+26. Pirate Ship Storm: A rocking deck tilts the whole screen's gravity direction. Barrels roll, cannons fire at you, and kraken tentacles grab platforms.
+27. Gravity Well Planets: Tiny planetoids each have their own gravity. Jump between them, orbiting around to reach distant coins.
+28. Mirror World: The screen shows two ducks, one normal and one mirrored. Both move together, and each must reach its own exit while obstacles differ in each half.
+29. Fox Chase Treadmill: A fox chases you through an endless looping level. Each lap, the layout mutates, and you must grab coins to unlock the exit.
+30. Cooking Contest: Collect ingredients across platforms in recipe order. Wrong order spawns angry soup monsters, and the final stew is the boss fight.
