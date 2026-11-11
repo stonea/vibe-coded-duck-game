@@ -1,3 +1,10 @@
+Things to do:
+- Instruction manual
+- Teaser video
+- Website
+- Blog post
+- Post on off topic channel
+
 Wild level ideas for the duck game
 (Flood Tower is being built as level 5, so it is not listed here.)
 
@@ -31,3 +38,34 @@ Wild level ideas for the duck game
 28. Mirror World: The screen shows two ducks, one normal and one mirrored. Both move together, and each must reach its own exit while obstacles differ in each half.
 29. Fox Chase Treadmill: A fox chases you through an endless looping level. Each lap, the layout mutates, and you must grab coins to unlock the exit.
 30. Cooking Contest: Collect ingredients across platforms in recipe order. Wrong order spawns angry soup monsters, and the final stew is the boss fight.
+
+Enemy ideas for the duck game
+
+1. Bramble Hedgehog: Curls into a spiky ball and rolls down slopes. Peas bounce off the spines, so you have to wait for it to uncurl, or bounce it into a pit.
+2. Snapping Turtle: Slow and armoured. Peas only hurt when it pokes its head out to snap, and its shell can be used as a floating platform once it is stunned.
+3. Slime Slug: Leaves a sticky trail that slows the duck. A quack makes it shrink and speed up, and salt crumbs (a new pickup) dissolve it.
+4. Wasp Swarm: A cloud of tiny wasps that hovers over a nest and chases the duck once she gets close. One quack scatters it for a few seconds, and fleeing into water loses it.
+5. Dragonfly Dive-Bomber: Hovers high above, telegraphs with a glint, then dives in a straight line. Dodge, then shoot it while it recovers on the ground.
+6. Jumping Frog Hopper: Hops in big arcs and lands on ledges with a shockwave. It can be stomped from above, but its tongue pulls the duck toward it.
+7. Snake in the Reeds: Hides in grass and strikes when the duck walks past. Sitting (Down) makes the duck hard to see, and rustling grass gives it away.
+8. Raccoon Thief: Steals a coin or pea pack and runs off. Shoot or chase it down to get the item back, and it gets faster with each theft.
+9. Crow Egg-Snatcher: Circles over the nest and swoops to grab eggs and chicks. A loud quack scares it away, and a scarecrow decoy keeps it busy.
+10. Pike Fish: Lurks in the deep part of lakes and lunges at a diving duck. It is attracted to splashing, so floating slowly keeps it away. Pearls guard its cave.
+11. Electric Eel: Charges up and zaps the water around it. Standing on a ledge above a lake is safe, but swimming through while it recharges is not.
+12. Jellyfish Drifter: Floats slowly through lakes. The sting slows the duck, and the dome can be bounced on like a mushroom.
+13. Mole Digger: Tunnels under the ground and pops up under the duck. Shows a mound before surfacing, and stays stunned if it comes up under a ledge.
+14. Ant Column: A line of ants marching along ledges. Each ant is weak but they hurt in a chain, and a pea that hits the lead ant makes the rest turn around.
+15. Spider Dropper: Hangs from a silk thread on the ceiling, then drops when the duck passes below. Shoot the thread to drop it early, and the webs left behind make sticky platforms.
+16. Stag Beetle Brute: A bigger beetle with antlers. It charges, and its antlers lock into walls so it can be stuck for a few seconds. Needs a hit from behind.
+17. Firefly Decoy: Looks like a harmless coin-glow in the dark levels, but leads the duck over a gap or into a bat. Gets the true coin-glow only when it blinks twice.
+18. Owl Sentinel: Sits on a high branch and swivels. When it spots the duck it hoots and calls other enemies. Stay behind cover or knock it off with a pea.
+19. Ice Imp: Lives on the ice levels and slides at high speed. Its path cannot be steered, so you step out of the way and let it crash into walls.
+20. Fire Ember Sprite: Lava level only. Hops out of the lava and leaves burning platforms behind. Water pistol shots put it out and turn it into a stepping stone.
+21. Wind Wisp: A swirl that pushes the duck sideways. Umbrella gliding makes it worse, and shooting it turns it into a tailwind for a short time.
+22. Magnet Crab: Walks sideways, pulls metal crates and coins toward itself. Flip its polarity with a quack to launch the crates at other enemies.
+23. Mimic Chest: Looks like a pea pack or a coin. Bites when picked up, but defeating it drops a better reward.
+24. Bubble Blower: Floats around and traps the duck in a bubble that carries her upward and away. Jump out by popping the bubble with a pea.
+25. Shadow Duck: A dark copy that copies the duck's last run, one second behind. Dies to a quack when facing it, and leads you toward hidden coins.
+26. Mini Boss: Mama Beetle: Guards a nest of baby beetles. Peas hurt her, but each wave of babies spawns more beetles, so the trick is to break the eggs first.
+27. Mini Boss: Giant Pike: Rises out of the lake in a flood level. Dodging its jumps with the umbrella glide lets you shoot its weak spot.
+28. Mini Boss: The Fox King: Level 13 finale. Summons foxes, steals the golden egg, and has to be herded into the pond where it loses its crown.

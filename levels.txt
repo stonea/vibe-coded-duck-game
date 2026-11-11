@@ -1,0 +1,119 @@
+Duck Game levels
+================
+
+Each level lists its theme, how to get its hidden pink gem, and the hint the
+game shows in the inventory overlay (press i). Hints come from GEM_HINTS in
+duckgame.py. Levels 9 and 11 to 14 have no gem, so they have no hint.
+
+
+Level 1: Tutorial
+  Theme:     A one-screen meadow with no enemies and tips painted on the backdrop.
+  Gem:       Sit (Down) on the springy patch of grass in the middle for about
+             1.2 seconds. She falls into a hidden cavern; climb the stepped
+             ledges on the right to the gem.
+  Hint:      "Lay down, down and rest where the grass is most comfy."
+
+Level 2: Stunning Mites
+  Theme:     Two small hills of stairs patrolled by a few mites; quacks stun them.
+  Gem:       Hold Space on the top ledge of either hill until the full chorus
+             of quacks appears. A hidden ledge appears above hill 1 and hill 2
+             builds another above it. Climb back to hill 1 and take the gem
+             from the upper ledge.
+  Hint:      "Shout from the top of each hill as long as your breath will last,
+             then climb as high as the echoes."
+
+Level 3: Mites
+  Theme:     A long scrolling level of stair hills full of mites, ending at the
+             pea-shooter on the far-right platform.
+  Gem:       Have 6 mites stunned at the same moment (quack when 6 are within
+             range). A zigzag of five ledges appears above the top ledge of
+             hill 2, leading up to the gem.
+  Hint:      "When enough little ones have been put to sleep, a stair will rise
+             above the second hill."
+
+Level 4: Three Hills
+  Theme:     Three hills side by side: mites on hill 1, a shooting lesson on
+             hill 2, and beetles on hill 3.
+  Gem:       Leap of faith from the left end of the top ledge of the third hill
+             (its left end glows faintly pink while you stand there). Invisible
+             ledges appear as you land on them; the gem shows after the 4th.
+  Hint:      "Not every step can be seen; take a leap of faith where the left
+             edge gleams."
+
+Level 5: Moving Ledges
+  Theme:     Sliding ledges carry the duck to the pea-shooter and across a wide
+             gap to a staircase of beetles.
+  Gem:       Ride the beetle's high sliding ledge and jump from its left end
+             (it glows faintly pink there). A chain of hidden ledges appears
+             above it, leading to the gem.
+  Hint:      "Ride with the beetle's neighbour, then leap from where it begins."
+
+Level 6: Mushrooms
+  Theme:     A tall climb up stairs, mushrooms and sliding ledges, with mites,
+             beetles and wind gusts near the top.
+  Gem:       Walk to the right end of the summit ledge. A new mushroom sprouts
+             that looks like the others. Bounce on it while holding Up for the
+             bigger bounce to reach the gem. Beware: the level ends 3 seconds
+             after the last achievement.
+  Hint:      "The top is not the end. Go right and the ground will answer."
+
+Level 7: Medium Flood
+  Theme:     A medium tower of staggered ledges with water that rises steadily.
+  Gem:       Drown while standing on the grass. A mermaid revives you in a
+             cavern; after a moment a hidden room opens in the rock and you
+             can collect the gem. Climb the stairs back to the grass and the
+             flood resumes.
+  Hint:      "Sometimes the deep is kind. Take a last breath where the grass ends."
+
+Level 8: Final Climb
+  Theme:     Level 6 mirrored, with mushrooms, sliding ledges, six beetles, wind
+             and rising water.
+  Gem:       Walk off the right end of a ledge about 50 rows up (ledges 24 and
+             26 work) and land on a lone ledge far to the right of the tower.
+             Jump from its right end (it glows faintly) to reveal a chain of
+             hidden ledges; the gem shows after the 4th.
+  Hint:      "Step off the edge, far from the climb, and a hidden ledge will
+             catch you."
+
+Level 9: Bramble Hill
+  Theme:     A tall grassy zigzag of 21 ledges with two mushrooms and a
+             sliding ledge, patrolled by mites, beetles, hedgehogs and
+             armadillos. Hedgehogs walk uphill, curl into a
+             spiky ball at the top and roll back down; peas bounce off the
+             ball, so wait for it to uncurl. Armadillos can only be hurt by a
+             pea in the back; one that hits the front bounces back and hurts
+             the duck (sit down or jump to get under it).
+  Gem:       None.
+  Hint:      None.
+
+Level 10: Flood Tower
+  Theme:     A tall tower of ledges; the water rises, then speeds up in the rain.
+  Gem:       When the rain starts (reach ledge 12), a storm cloud appears as a
+             sliding ledge. Ride it to the end where the gem hangs. The first
+             landing lowers the water by 6 rows, and it holds still while you
+             stand on the cloud.
+  Hint:      "When the sky weeps, something floats that is meant to be ridden."
+
+Level 11: Ice Rink
+  Theme:     An icy rink: the duck slides instead of walking. Beetles, a
+             pea-shooter and a climb to the top.
+  Gem:       None.
+  Hint:      None.
+
+Level 12: Hard Ice Rink
+  Theme:     A harder rink with narrower ledges, a sliding ledge and a mushroom.
+  Gem:       None.
+  Hint:      None.
+
+Level 13: Grand Tour
+  Theme:     A wide, tall world: ice, a sliding ledge, mushrooms, a 60-column
+             chasm crossed with the umbrella glide, and a windy tower with 14
+             beetles.
+  Gem:       None.
+  Hint:      None.
+
+Level 14: The Full Game
+  Theme:     A 2400-column world with lakes, caves, pearls, hunger, hats, eggs,
+             chicks, predators and 17 achievements.
+  Gem:       None.
+  Hint:      None.

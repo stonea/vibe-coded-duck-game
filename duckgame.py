@@ -15,9 +15,9 @@ import tty
 # ---- layout -------------------------------------------------------------------------------
 STEP = 3  # rows between platform levels; the duck's jump is a little higher than this
 MAX_LEVEL = 10
-SKY_ADDED = 80  # extra rows of sky for the tall level 4 (saves from before it are shifted down by this much)
+SKY_ADDED = 80  # extra rows of sky for the tall level 6 (saves from before it are shifted down by this much)
 SKY_EXTRA = 30  # and more for the taller flood tower (saves from before it are shifted by this much too)
-SKY_MORE = 40  # and more again for the taller level 6 (saves from before it are shifted by this much too)
+SKY_MORE = 40  # and more again for the taller level 8 (saves from before it are shifted by this much too)
 TOP_MARGIN = 10 + SKY_ADDED + SKY_EXTRA + SKY_MORE  # rows of sky above the highest level's feet row
 GROUND = TOP_MARGIN + STEP * MAX_LEVEL  # feet row of the ground floor
 SURFACE_H = GROUND + 2  # the row under the ground floor holds the grass line
@@ -27,7 +27,7 @@ CAVE_MARGIN = 24  # how far the caves reach past each lake's edge
 DEFAULT_VIEW_H = 21
 MIN_VIEW_H = 8
 VBUFFER = 6  # rows the camera keeps between the duck and the top/bottom of the screen
-WORLD_W = 2400  # the world is wider than the screen; the camera follows the duck (level 2; see configure_level)
+WORLD_W = 2400  # the world is wider than the screen; the camera follows the duck (level 3; see configure_level)
 POND_W = 40
 PONDS = [150, 1000, 1800]  # left edge of each lake
 MIN_COLS = 150  # the game won't run in a smaller terminal
@@ -180,47 +180,62 @@ LEVEL1_ACHIEVEMENTS = [
 ]
 LEVEL2_ACHIEVEMENTS = [
     ("allcoins", "Pick up every $", "grab all the coins"),
-    ("slayer", "Defeat every beetle", "shoot them with the pea-shooter (Space)"),
+    ("stun", "Stun a mite", "quack (Space) when a mite is close"),
 ]
 LEVEL3_ACHIEVEMENTS = [
     ("allcoins", "Pick up every $", "grab all the coins"),
-    ("slayer", "Defeat every enemy", "shoot them with the pea-shooter (Space)"),
+    ("slayer", "Defeat every mite", "quack to stun them, then shoot them with the pea-shooter (Space)"),
 ]
 LEVEL4_ACHIEVEMENTS = [
-    ("allcoins", "Pick up every $", "grab all the coins, some hang in the air"),
-    ("summit", "Reach the summit", "bounce up to the top ledge"),
+    ("allcoins", "Pick up every $", "grab all the coins"),
+    ("slayer", "Defeat every enemy", "quack to stun the mites, shoot mites and beetles with the pea-shooter (Space)"),
 ]
 LEVEL5_ACHIEVEMENTS = [
     ("allcoins", "Pick up every $", "grab all the coins"),
-    ("summit", "Escape the flood", "climb to the top ledge"),
+    ("slayer", "Defeat every enemy", "shoot them with the pea-shooter (Space)"),
 ]
 LEVEL6_ACHIEVEMENTS = [
+    ("allcoins", "Pick up every $", "grab all the coins, some hang in the air"),
+    ("summit", "Reach the summit", "bounce up to the top ledge"),
+]
+LEVEL7_ACHIEVEMENTS = [
+    ("allcoins", "Pick up every $", "grab all the coins"),
+    ("summit", "Escape the flood", "climb to the top ledge"),
+]
+LEVEL8_ACHIEVEMENTS = [
     ("allcoins", "Pick up every $", "grab all the coins, some hang in the air"),
     ("slayer", "Defeat every beetle", "shoot them (Space), or let the flood drown them"),
     ("summit", "Escape the flood", "bounce up to the top ledge"),
 ]
-LEVEL7_ACHIEVEMENTS = LEVEL5_ACHIEVEMENTS
-LEVEL8_ACHIEVEMENTS = [
+LEVEL9_ACHIEVEMENTS = [
     ("allcoins", "Pick up every $", "grab all the coins, even the ones over the gaps"),
-    ("slayer", "Defeat every beetle", "shoot them (Space): the kick slows you down"),
+    ("slayer", "Defeat every enemy", "quack (Space) to stun mites, shoot beetles, hedgehogs once they uncurl and armadillos in the back"),
+    ("summit", "Reach the summit", "climb the bramble hill to the top ledge"),
+]
+LEVEL10_ACHIEVEMENTS = LEVEL7_ACHIEVEMENTS
+LEVEL11_ACHIEVEMENTS = [
+    ("allcoins", "Pick up every $", "grab all the coins, even the ones over the gaps"),
+    ("slayer", "Defeat every enemy", "shoot them (Space): the kick slows you down"),
     ("summit", "Reach the summit", "climb the icy ledges to the top"),
 ]
-LEVEL9_ACHIEVEMENTS = [
+LEVEL12_ACHIEVEMENTS = [
     ("allcoins", "Pick up every $", "grab all the coins, even the ones over the gaps and above the mushroom"),
     ("slayer", "Defeat every beetle", "shoot them (Space): the kick slows you down"),
     ("summit", "Reach the summit", "ride the sliding ledge, bounce up the mushroom, and climb to the top"),
 ]
-LEVEL10_ACHIEVEMENTS = [
+LEVEL13_ACHIEVEMENTS = [
     ("allcoins", "Pick up every $", "grab all the coins, even the ones along the glide"),
     ("slayer", "Defeat every beetle", "shoot them (Space): they are all over the tour"),
     ("summit", "Reach the summit", "slide, ride, bounce, glide over the chasm and climb the tower"),
 ]
-LEVEL_ACHIEVEMENTS = {1: LEVEL1_ACHIEVEMENTS, 2: LEVEL2_ACHIEVEMENTS, 3: LEVEL3_ACHIEVEMENTS, 4: LEVEL4_ACHIEVEMENTS, 5: LEVEL5_ACHIEVEMENTS, 6: LEVEL6_ACHIEVEMENTS, 7: LEVEL7_ACHIEVEMENTS, 8: LEVEL8_ACHIEVEMENTS, 9: LEVEL9_ACHIEVEMENTS, 10: LEVEL10_ACHIEVEMENTS, 11: ACHIEVEMENTS}  # finishing a level's list moves on to the next level
-LAST_LEVEL = 11
-GRAND_LEVEL = 10  # the grand tour: the biggest level, with every mechanic
-ICE_LEVELS = (8, 9)  # the two ice rinks
-NO_LIVES_LEVELS = (2, *ICE_LEVELS)  # dying offers a restart instead of costing a life
-SLAYER_LEVELS = (2, 3, 6, *ICE_LEVELS, GRAND_LEVEL)  # levels with a "defeat every enemy" goal
+LEVEL_ACHIEVEMENTS = {n: globals()[f"LEVEL{n}_ACHIEVEMENTS"] for n in range(1, 14)}
+LEVEL_ACHIEVEMENTS[14] = ACHIEVEMENTS  # finishing a level's list moves on to the next level
+LAST_LEVEL = 14
+GRAND_LEVEL = 13
+HEDGE_LEVEL = 9  # bramble hedgehogs and armadillos  # the grand tour: the biggest level, with every mechanic
+ICE_LEVELS = (11, 12)  # the two ice rinks
+NO_LIVES_LEVELS = (2, 3, 4, HEDGE_LEVEL, *ICE_LEVELS)  # dying offers a restart instead of costing a life
+SLAYER_LEVELS = (3, 4, 5, 8, HEDGE_LEVEL, *ICE_LEVELS, GRAND_LEVEL)  # levels with a "defeat every enemy" goal
 BOUNCE_ROWS = 11  # a mushroom throws her this high; holding Up as she lands adds BOUNCE_BOOST
 BOUNCE_BOOST = 3
 MUSH_W = 5
@@ -233,24 +248,36 @@ GUST_WARN = 1.5  # time to react and sit down
 GUST_TIME = 3.5
 GUST_PUSH_START = 0.075  # seconds per column of wind push when a gust begins: weak...
 GUST_PUSH_END = 0.01  # ...and this at its peak, strong enough to sweep her off a ledge
-WIND_ROW = GROUND - 60  # the wind only blows at and above this row (level 4's upper ledges)
+WIND_ROW = GROUND - 60  # the wind only blows at and above this row (level 6's upper ledges)
 C_WIND = "38;5;117"
 BOING_SOUND = "/System/Library/Sounds/Pop.aiff"
 LEVEL_INTROS = {1: "Level 1: quack, pick up every $, and lay an egg",
-                2: "Level 2: pick up every $ and defeat all the beetles",
-                3: "Level 3: pick up every $ and defeat every enemy, including the beetle on the moving ledge",
-                4: "Level 4: bounce up the mushrooms to the summit and grab every $",
-                5: "Level 5: the water is rising! Grab every $ and climb to the top ledge",
-                6: "Level 6: the final climb! Bounce, ride, shoot the beetles and outrun the water to the top",
-                7: "Level 7: the water is rising fast! Grab every $ and climb to the top ledge", 8: "Level 8: the ice rink! You slide, so press Down to brake. Grab every $, shoot the beetles and climb to the top",
-                9: "Level 9: a harder rink! Ride the sliding ledge, bounce up the mushroom, shoot the beetles and grab every $",
-                10: "Level 10: the grand tour! Slide, ride, bounce, shoot, find the umbrella to glide over the chasm, then climb the windy tower",
-                11: "Level 11"}
+                2: "Level 2: quack to stun the mites, then pick up every $",
+                3: "Level 3: quack to stun the mites and walk all the way right to the pea-shooter, then pick up every $ and defeat them all",
+                4: "Level 4: three hills: mites, then beetles. Pick up every $ and defeat them all",
+                5: "Level 5: ride the moving ledges to the pea-shooter and on across the gap, then pick up every $ and defeat every enemy",
+                6: "Level 6: stun the mites with quacks, find the pea-shooter on the way up, shoot the beetles above it, bounce up the mushrooms to the summit and grab every $",
+                7: "Level 7: the water is rising! Grab every $ and climb to the top ledge",
+                8: "Level 8: the final climb! Bounce, ride, shoot the beetles and outrun the water to the top",
+                9: "Level 9: mites, beetles, hedgehogs that curl into rolling spiky balls and armadillos that only fall to a shot in the back (bounced peas can hurt you)! Grab every $, defeat them all and climb to the top",
+                10: "Level 10: the water is rising fast! Grab every $ and climb to the top ledge",
+                11: "Level 11: the ice rink! You slide, so press Down to brake. Grab every $, shoot the beetles and climb to the top",
+                12: "Level 12: a harder rink! Ride the sliding ledge, bounce up the mushroom, shoot the beetles and grab every $",
+                13: "Level 13: the grand tour! Slide, ride, bounce, shoot, find the umbrella to glide over the chasm, then climb the windy tower",
+                14: "Level 14"}
 LEVEL_DONE_DELAY = 3.0  # seconds of "level complete" before the next level starts
-SCREEN_W = MIN_COLS - 1  # levels 1-4 fill the (minimum) screen width
-LEVEL2_ARCH = [(6, 20, 1), (56, 70, 1), (16, 30, 2), (46, 60, 2), (26, 40, 3), (36, 50, 3)]  # (x0, x1, ledge level)
-LEVEL2_LEDGES = LEVEL2_ARCH + [(x0 + 75, x1 + 75, n) for x0, x1, n in LEVEL2_ARCH]  # two arches side by side
-LEVEL2_START_X = 24
+SCREEN_W = MIN_COLS - 1  # levels 1-5 fill the (minimum) screen width
+LEVEL4_W = 320  # three hills side by side, so the camera follows the duck
+LEVEL4_LEDGES = [(22, 36, 1), (32, 46, 2), (42, 56, 3), (52, 72, 4), (68, 84, 5), (76, 92, 3), (88, 104, 2), (100, 116, 1),  # hill 1: mites, and the pea-shooter on its highest ledge
+                 (126, 140, 1), (136, 150, 2), (146, 166, 3), (162, 176, 2), (172, 186, 1),  # hill 2: beetles
+                 (204, 218, 1), (214, 228, 2), (224, 238, 3), (234, 248, 4), (244, 262, 5),
+                 (258, 274, 4), (270, 286, 3), (282, 298, 2), (294, 308, 1)]  # hill 3: beetles and the secret, climbing to a level 5 top and back down  (x0, x1, ledge level)
+LEVEL4_START_X = 6
+LEVEL4_SHOOTER = (80, GROUND - 5 * STEP - 1)  # on the highest ledge, a jump up from the top of the first hill
+LEVEL4_PACK = (62, GROUND - 4 * STEP - 1)
+LEVEL4_MITES = [(16, 34, 0), (34, 42, 2), (54, 68, 4), (78, 88, 3), (90, 100, 2),  # (patrol lo, patrol hi, ledge level): a few on the first hill, stunned to reach the shooter
+                (137, 146, 2), (164, 172, 2)]  # two more on hill 2: easy first targets, one pea each
+LEVEL4_COINS = [(x, GROUND - 1) for x in (12, 62, 120, 190, 250, 300)]
 LEVEL1_LEDGES = [(44, 58, 1), (54, 68, 2), (64, 78, 3), (74, 88, 4), (104, 118, 1)]  # level 1: a four-ledge staircase to the top coin, plus a low ledge
 LEVEL1_COINS = [(26, GROUND - 1), (34, GROUND - 1), (80, GROUND - 1), (90, GROUND - 1)]
 LEVEL1_START_X = 8
@@ -271,34 +298,84 @@ LEVEL1_HINTS = [  # (x, row, text) painted on the backdrop, behind everything el
     (96, GROUND - 12, "Press a to see your achievements."),
     (96, GROUND - 8, "Finish all achievements to move to the next level."),
 ]
-LEVEL2_HINTS = [(3, GROUND - 13, "Make sure to get the pea shooter [P]"), (3, GROUND - 11, "Press Space to shoot"),
-                (36, GROUND - 16, "Press 'a' to see achievements; complete all achievements to finish the level.")]
-LEVEL3_LEDGES = [(94, 108, 2), (98, 112, 3)]  # static ledges (the pea-shooter is on the first); the moving ones are LEVEL3_MOVERS
-LEVEL3_COINS = [(x, GROUND - 1) for x in (12, 45, 70, 125)]
+# level 3: the mites. A tiny enemy that is stunned by a quack. Stairs of ledges climb to the pea-shooter, each guarded by a mite, so she has to
+# quack (Space) to stun the mites and slip past them. With the pea-shooter in hand, Space shoots instead and one pea kills a mite.
+MITE_W = 3
+MITE_STEP = 0.2  # seconds per column: quicker than a beetle
+MITE_DAMAGE = 10.0
+STUN_TIME = 3.0  # seconds a quack keeps a mite still (every new quack renews it)
+STUN_RANGE = 26  # columns, either side of the duck
+STUN_ROWS = 13  # rows, above or below the duck's feet: a quack carries up a staircase of four ledges
+MITE_TOP = "{o}"
+MITE_LEGS = ["/|\\", "\\|/"]
+MITE_STUNNED = "{x}"
+MITE_STARS = ["* *", " * "]
+C_MITE = "33"
+LEVEL2_W = 200  # wider than the screen, but much shorter than the later levels
+LEVEL2_LEDGES = [(30, 44, 1), (40, 54, 2), (50, 70, 3), (66, 80, 2), (76, 90, 1),  # the first hill
+                 (120, 134, 1), (130, 144, 2), (140, 160, 3), (156, 170, 2), (166, 180, 1)]  # the second hill  (x0, x1, ledge level)
+LEVEL2_START_X = 6
+LEVEL2_MITES = [(100, 114, 0), (52, 66, 3), (142, 156, 3), (150, 192, 0)]  # (patrol lo, patrol hi, ledge level): a few, each guarding a stretch of the way
+LEVEL2_COINS = [(x, GROUND - 1) for x in (14, 36, 96, 116, 186)]
+LEVEL2_HINTS = [(3, GROUND - 15, "Mites bite! Hold Space to quack: it stuns the ones nearby for a few seconds"),
+                (3, GROUND - 13, "A stunned mite is harmless: slip past it before it wakes up"),
+                (3, GROUND - 11, "Press 'a' to see achievements; complete all achievements to finish the level.")]
+LEVEL3_SHIFT = 20  # empty ground before the first coin and mite, so the duck has to walk a little
+LEVEL3_W = 300 + LEVEL3_SHIFT  # about twice the screen: the duck has to walk a long way, and the camera follows her
+LEVEL3_LEDGES = [(28, 42, 1), (38, 52, 2), (48, 62, 3), (58, 80, 4), (76, 92, 3), (88, 104, 2), (100, 116, 1), (112, 128, 2), (124, 140, 3),  # the first hill
+                 (158, 172, 1), (168, 182, 2), (178, 198, 3), (194, 208, 2), (204, 218, 1),  # the second hill
+                 (240, 254, 1), (250, 264, 2), (260, 296, 3)]  # the stairs up to the pea-shooter's platform on the far right  (x0, x1, ledge level)
+LEVEL3_LEDGES = [(x0 + LEVEL3_SHIFT, x1 + LEVEL3_SHIFT, n) for x0, x1, n in LEVEL3_LEDGES]
+LEVEL3_START_X = 6
+LEVEL3_SHOOTER = (292 + LEVEL3_SHIFT, GROUND - 3 * STEP - 1)  # at the far right end of the last platform
+LEVEL3_PACK = (62 + LEVEL3_SHIFT, GROUND - 4 * STEP - 1)
+LEVEL3_MITES = [(16, 26, 0), (40, 48, 2), (60, 70, 4),  # (patrol lo, patrol hi, ledge level): over the first hill...
+                (92, 100, 2), (114, 122, 2),
+                (160, 168, 1), (180, 194, 3), (206, 214, 1), (150, 230, 0),  # ...the second hill...
+                (252, 260, 2), (262, 290, 3), (234, 296, 0)]  # ...and the stairs to the pea-shooter
+LEVEL3_MITES = [(lo + LEVEL3_SHIFT, hi + LEVEL3_SHIFT, n) for lo, hi, n in LEVEL3_MITES]
+LEVEL3_COINS = [(x + LEVEL3_SHIFT, GROUND - 1) for x in (12, 60, 100, 128, 150, 190, 230, 270)]
+LEVEL3_HINTS = [(3, GROUND - 25, "Mites! They bite, but a quack (hold Space) stuns them for a few seconds"),
+                (3, GROUND - 23, "Stunned mites are harmless: keep walking right, the pea shooter [P] is far away"),
+                (3, GROUND - 21, "With the pea shooter, Space shoots instead of quacking: one pea kills a mite"),
+                (3, GROUND - 19, "Press 'a' to see achievements; complete all achievements to finish the level."),
+                (LEVEL3_MITES[0][0] + 2, GROUND - 6, "Quack at me!")]
+LEVEL4_HINTS = [(3, GROUND - 25, "Three hills! Quack to stun the mites, then climb the first hill"),
+                (3, GROUND - 23, "Jump from the top ledge up to the pea shooter [P], then shoot (Space)"),
+                (3, GROUND - 21, "Hill 2: one pea kills a mite, a beetle takes three. Shoot from a distance!"),
+                (3, GROUND - 19, "Hill 3 is full of beetles: save your peas, packs [o] refill them"),
+                (3, GROUND - 17, "Press 'a' to see achievements; complete all achievements to finish the level.")]
+LEVEL5_W = 290  # a long level: she rides one sliding ledge to the pea-shooter, then a second one across the big gap
+LEVEL5_LEDGES = [(94, 108, 2), (98, 112, 3),  # static ledges (the pea-shooter is on the first); the moving ones are LEVEL5_MOVERS
+                 (177, 193, 3), (189, 205, 4), (201, 221, 5), (217, 233, 4), (229, 245, 3), (241, 257, 2)]  # beyond the second slider: up, then back down (the last step is out of jump reach from the ground)  (x0, x1, ledge level)
+LEVEL5_COINS = [(x, GROUND - 1) for x in (12, 45, 70, 125, 160, 215, 250, 280)]
+LEVEL5_BEETLES = [(178, 189, 3), (190, 201, 4), (202, 217, 5), (218, 229, 4), (230, 241, 3), (242, 253, 2), (150, 285, 0)]  # (patrol lo, patrol hi, ledge level)
 MOVER_STEP = 0.3  # seconds per column for a speed-1 ledge
-LEVEL3_MOVERS = [  # ledges sliding between x0=lo and x0=hi; the one with a beetle is out of reach from below
+LEVEL5_MOVERS = [  # ledges sliding between x0=lo and x0=hi; the one with a beetle is out of reach from below
     {"w": 14, "n": 1, "lo": 20, "hi": 90, "step": MOVER_STEP / 3},  # the only way up to the pea-shooter ledge
     {"w": 12, "n": 3, "lo": 36, "hi": 84, "step": MOVER_STEP / 2, "beetle": True},
+    {"w": 12, "n": 3, "lo": 113, "hi": 165, "step": MOVER_STEP / 2.5},  # slides between the top ledge (ends at 112) and the far ledges (start at 177), touching each at the ends (index 2: the glint and the secret use index 1)
 ]
-LEVEL3_START_X = 24
-LEVEL3_HINTS = [(3, GROUND - 13, "Ride the moving ledge to reach the pea shooter [P]"), (3, GROUND - 12, "Press Space to shoot"),
+LEVEL5_START_X = 24
+LEVEL5_HINTS = [(3, GROUND - 13, "Ride the moving ledge to reach the pea shooter [P]"), (3, GROUND - 12, "Press Space to shoot"),
                 (44, GROUND - 17, "Shoot the beetle on the high moving ledge"), (44, GROUND - 15, "from the ledge across from it."),
+                (100, GROUND - 21, "Ride the second moving ledge across the gap"),
                 (36, GROUND - 19, "Press 'a' to see achievements; complete all achievements to finish the level.")]
-# Level 4 climbs in two parts. Part 1 is plain jumping: a staggered staircase of ledges 3 rows apart, each a plain jump from the last.
+# Level 6 climbs in two parts. Part 1 is plain jumping: a staggered staircase of ledges 3 rows apart, each a plain jump from the last.
 # Part 2 is mushrooms: ledges 8 rows apart that alternate right and left, a mushroom at the end of each throwing her
 # toward the next one. The very last step is 12 rows and needs the boosted bounce.
-LEVEL4_STAIRS = 10
-LEVEL4_STAIR_X = [(36, 58), (60, 80), (44, 64), (24, 46), (8, 30), (32, 52), (54, 76), (78, 98), (58, 80), (72, 101)]  # staggered by hand
-LEVEL4_LEDGES = [(x0, x1, GROUND - STEP * k) for k, (x0, x1) in enumerate(LEVEL4_STAIR_X, 1)]  # (x0, x1, floor row)
-LEVEL4_DRIFT = [0, 0, 0, -6, 4, -5, 12, -4, 14, -8]  # sideways shift of each mushroom ledge: straight at first, then wandering
-LEVEL6_DRIFT = LEVEL4_DRIFT[:9] + [-4, 8, -4, 10, -6, 10, -6, 8, -8]  # level 6 keeps climbing: 18 mushroom ledges
+LEVEL6_STAIRS = 10
+LEVEL6_STAIR_X = [(36, 58), (60, 80), (44, 64), (24, 46), (8, 30), (32, 52), (54, 76), (78, 98), (58, 80), (72, 101)]  # staggered by hand
+LEVEL6_LEDGES = [(x0, x1, GROUND - STEP * k) for k, (x0, x1) in enumerate(LEVEL6_STAIR_X, 1)]  # (x0, x1, floor row)
+LEVEL6_DRIFT = [0, 0, 0, -6, 4, -5, 12, -4, 14, -8]  # sideways shift of each mushroom ledge: straight at first, then wandering
+LEVEL8_DRIFT = LEVEL6_DRIFT[:9] + [-4, 8, -4, 10, -6, 10, -6, 8, -8]  # level 8 keeps climbing: 18 mushroom ledges
 
 
 def mushroom_tower(drift):
     """The mushroom part above the stairs: ledges 8 rows apart (the last 12), a mushroom at the end of each but the last."""
-    ledges, mushrooms = [], [(95, GROUND - STEP * LEVEL4_STAIRS)]  # (x0, floor row)
+    ledges, mushrooms = [], [(95, GROUND - STEP * LEVEL6_STAIRS)]  # (x0, floor row)
     for j in range(1, len(drift) + 1):
-        floor = GROUND - STEP * LEVEL4_STAIRS - 8 * j if j < len(drift) else GROUND - STEP * LEVEL4_STAIRS - 8 * (j - 1) - 12
+        floor = GROUND - STEP * LEVEL6_STAIRS - 8 * j if j < len(drift) else GROUND - STEP * LEVEL6_STAIRS - 8 * (j - 1) - 12
         d = drift[j - 1]
         ledges.append((59 + d, 95 + d, floor) if j % 2 else (67 + d, 105 + d, floor))
         if j < len(drift):
@@ -306,23 +383,29 @@ def mushroom_tower(drift):
     return ledges, mushrooms
 
 
-_tower, LEVEL4_MUSHROOMS = mushroom_tower(LEVEL4_DRIFT)
-LEVEL4_LEDGES += _tower
-LEVEL4_COINS = [(x0 + 2, floor - 7) for x0, floor in LEVEL4_MUSHROOMS]  # hanging above each mushroom
-LEVEL4_MOVERS = [  # sliding ledges that replace stairs 6 and 9: the gaps they leave can only be crossed by riding them
+_tower, LEVEL6_MUSHROOMS = mushroom_tower(LEVEL6_DRIFT)
+LEVEL6_LEDGES += _tower
+LEVEL6_COINS = [(x0 + 2, floor - 7) for x0, floor in LEVEL6_MUSHROOMS]  # hanging above each mushroom
+LEVEL6_MOVERS = [  # sliding ledges that replace stairs 6 and 9: the gaps they leave can only be crossed by riding them
     {"w": 14, "n": 6, "lo": 30, "hi": 44, "step": MOVER_STEP / 2},
     {"w": 14, "n": 9, "lo": 60, "hi": 88, "step": MOVER_STEP / 2},
 ]
-LEVEL4_START_X = 40
-SUMMIT = LEVEL4_LEDGES[-1][2]
-LEVEL4_HINTS = [(3, GROUND - 6, "Up arrow: jump up the ledges"),
+LEVEL6_START_X = 40
+LEVEL6_MITES = [(8, 30, GROUND), (100, 140, GROUND), (62, 76, GROUND - 3 * 2), (26, 42, GROUND - 3 * 4), (10, 26, GROUND - 3 * 5),
+                (56, 72, GROUND - 3 * 7), (80, 94, GROUND - 3 * 8)]  # mites patrol the stairs at the bottom: (patrol lo, patrol hi, floor row)
+LEVEL6_BEETLES = [(70, 95, 144), (64, 90, 128), (66, 92, 112)]  # beetles on mushroom ledges above the pea-shooter: (patrol lo, patrol hi, floor row)
+LEVEL6_SHOOTER = (86, GROUND - 3 * 10 - 9 - 1)  # on the first mushroom ledge, about a third of the way up
+LEVEL6_PACK = (72, GROUND - 3 * 10 - 9 - 1)
+SUMMIT = LEVEL6_LEDGES[-1][2]
+LEVEL6_HINTS = [(3, GROUND - 6, "Up arrow: jump up the ledges"),
                 (3, GROUND - 4, "Press 'a' to see achievements; complete all achievements to finish the level."),
+                (3, GROUND - 9, "Mites! Quack (Space) to stun them"), (3, GROUND - 8, "Pea shooter [P]: a third of the way up"),
                 (3, GROUND - 31, "Bounce on the mushrooms to climb!"), (3, GROUND - 29, "Hold Up as you land to bounce higher"),
                 (3, GROUND - 27, "Steer in the air to land on the next ledge"),
                 (3, GROUND - 17, "Ride the moving ledges to cross the gaps"),
                 (3, GROUND - 63, "Gusts blow up here: hold Down to sit and brace"),
                 (3, SUMMIT + 14, "The last step needs a bigger bounce: hold Up as you land")]
-HINTS_BY_LEVEL = {1: LEVEL1_HINTS, 2: LEVEL2_HINTS, 3: LEVEL3_HINTS, 4: LEVEL4_HINTS}
+HINTS_BY_LEVEL = {1: LEVEL1_HINTS, 2: LEVEL2_HINTS, 3: LEVEL3_HINTS, 4: LEVEL4_HINTS, 5: LEVEL5_HINTS, 6: LEVEL6_HINTS}
 ENEMY_W = 5
 FLOOD_SLOWDOWN = 2.0  # wading is slower than walking
 FLOOD_FISH = 40  # fish swimming around the tower; each is only drawn while it is under the water
@@ -355,26 +438,26 @@ def flood_config(ledges, coins, speed, accel, rain_ledge, start_x, hints, surge=
             "start_x": start_x, "hints": hints}
 
 
-# level 6 mirrors level 4's tower (stairs, mushrooms, sliding ledges, wind) and adds beetles, a pea-shooter and a rising flood
+# level 8 mirrors level 6's tower (stairs, mushrooms, sliding ledges, wind) and adds beetles, a pea-shooter and a rising flood
 def mirror_x(x0, x1):
     return SCREEN_W - 1 - x1, SCREEN_W - 1 - x0
 
 
-_tower, _mushrooms = mushroom_tower(LEVEL6_DRIFT)
-LEVEL6_LEDGES = [(*mirror_x(x0, x1), floor) for x0, x1, floor in LEVEL4_LEDGES[:LEVEL4_STAIRS] + _tower]
-LEVEL6_MUSHROOMS = [(mirror_x(x0, x0 + MUSH_W - 1)[0], floor) for x0, floor in _mushrooms]
-LEVEL6_SUMMIT = LEVEL6_LEDGES[-1][2]
-LEVEL6_MOVERS = [{**spec, "lo": SCREEN_W - spec["w"] - spec["hi"], "hi": SCREEN_W - spec["w"] - spec["lo"]} for spec in LEVEL4_MOVERS]
-LEVEL6_MOVERS[1]["beetle"] = True  # a beetle rides the second sliding ledge, so it has to be shot before the gap can be crossed
-LEVEL6_MOVER_ROWS = {GROUND - STEP * spec["n"] for spec in LEVEL6_MOVERS}
+_tower, _mushrooms = mushroom_tower(LEVEL8_DRIFT)
+LEVEL8_LEDGES = [(*mirror_x(x0, x1), floor) for x0, x1, floor in LEVEL6_LEDGES[:LEVEL6_STAIRS] + _tower]
+LEVEL8_MUSHROOMS = [(mirror_x(x0, x0 + MUSH_W - 1)[0], floor) for x0, floor in _mushrooms]
+LEVEL8_SUMMIT = LEVEL8_LEDGES[-1][2]
+LEVEL8_MOVERS = [{**spec, "lo": SCREEN_W - spec["w"] - spec["hi"], "hi": SCREEN_W - spec["w"] - spec["lo"]} for spec in LEVEL6_MOVERS]
+LEVEL8_MOVERS[1]["beetle"] = True  # a beetle rides the second sliding ledge, so it has to be shot before the gap can be crossed
+LEVEL8_MOVER_ROWS = {GROUND - STEP * spec["n"] for spec in LEVEL8_MOVERS}
 
 
-def level6_beetles():
+def level8_beetles():
     """Patrols on stair ledges 3 and 8 and on mushroom ledges 2, 5, 8, 11, 14 and 17, kept clear of the mushroom at the ledge's end."""
     beetles = []
-    mushroom_at = {floor: x0 for x0, floor in LEVEL6_MUSHROOMS}
+    mushroom_at = {floor: x0 for x0, floor in LEVEL8_MUSHROOMS}
     for k in (3, 8, 12, 15, 18, 21, 24, 27):
-        x0, x1, floor = LEVEL6_LEDGES[k - 1]
+        x0, x1, floor = LEVEL8_LEDGES[k - 1]
         m = mushroom_at.get(floor)
         if m is None:
             lo, hi = x0 + 2, x1 - ENEMY_W - 1
@@ -386,39 +469,69 @@ def level6_beetles():
     return beetles
 
 
-LEVEL6_FIRST = LEVEL6_LEDGES[0]
-# level 5 is the medium flood: a shorter tower than level 7 with mid-sized ledges, slower water and a gentler rain
+LEVEL8_FIRST = LEVEL8_LEDGES[0]
+# level 7 is the medium flood: a shorter tower than level 10 with mid-sized ledges, slower water and a gentler rain
 MEDIUM_LEDGES = build_flood_ledges(26, 4, (14, 22), (36, 44), 5)
-# level 7 is the flood tower: a tall tower of mostly narrow ledges, where rain makes the water speed up
+# level 10 is the flood tower: a tall tower of mostly narrow ledges, where rain makes the water speed up
 HARD_LEDGES = build_flood_ledges(33, 4, (16, 26), (40, 50), 77)
 FLOODS = {
-    5: flood_config(MEDIUM_LEDGES, [(x, floor - 1) for x0, x1, floor in MEDIUM_LEDGES if x1 - x0 > 30 for x in (x0 + 3, x1 - 3)],
-                    2.16, 0.25, 8, 56,
+    7: flood_config(MEDIUM_LEDGES, [(x, floor - 1) for x0, x1, floor in MEDIUM_LEDGES if x1 - x0 > 30 for x in (x0 + 3, x1 - 3)],
+                    1.94, 0.225, 8, 56,
                     [(3, GROUND - 10, "The water is rising! Jump up the ledges to stay above it"),
                      (3, GROUND - 8, "Stay above the water: under it for 3 seconds and you drown"),
                      (3, GROUND - 6, "Press 'a' to see achievements; complete all achievements to finish the level.")],
-                    surge=(13, 1.16, 0.23), max_speed=7.5),  # halfway up (ledge 13 of 26)
-    7: flood_config(HARD_LEDGES, [(x, floor - 1) for x0, x1, floor in HARD_LEDGES if x1 - x0 > 30 for x in (x0 + 3, x1 - 3)],  # both ends of each wide ledge, so she has to run along it
+                    surge=(13, 1.04, 0.21), max_speed=6.75),  # halfway up (ledge 13 of 26)
+    10: flood_config(HARD_LEDGES, [(x, floor - 1) for x0, x1, floor in HARD_LEDGES if x1 - x0 > 30 for x in (x0 + 3, x1 - 3)],  # both ends of each wide ledge, so she has to run along it
                     3.0, 0.36, 12, 56,
                     [(3, GROUND - 10, "The water is rising! Jump up the ledges to stay above it"),
                      (3, GROUND - 8, "Stay above the water: under it for 3 seconds and you drown"),
                      (3, GROUND - 6, "Press 'a' to see achievements; complete all achievements to finish the level.")]),
 }
-FLOODS[6] = flood_config(
-    LEVEL6_LEDGES, [(x0 + 2, floor - 7) for x0, floor in LEVEL6_MUSHROOMS], 0.8, 0.015, 11, SCREEN_W - LEVEL4_START_X - DUCK_W,
+FLOODS[8] = flood_config(
+    LEVEL8_LEDGES, [(x0 + 2, floor - 7) for x0, floor in LEVEL8_MUSHROOMS], 0.8, 0.015, 11, SCREEN_W - LEVEL6_START_X - DUCK_W,
     [(3, GROUND - 6, "Grab the pea shooter [P] and shoot the beetles (Space)"),
      (3, GROUND - 4, "Press 'a' to see achievements; complete all achievements to finish the level."),
      (3, GROUND - 17, "Ride the moving ledges to cross the gaps; shoot the beetle riding one"),
      (3, GROUND - 31, "Bounce on the mushrooms to climb! Hold Up as you land for more height"),
      (3, GROUND - 29, "The water keeps rising: stay above it and keep moving"),
      (3, GROUND - 63, "Gusts blow up here: hold Down to sit and brace"),
-     (3, LEVEL6_SUMMIT + 14, "The last step needs a bigger bounce: hold Up as you land")],
-    max_speed=1.8, movers=LEVEL6_MOVERS, mushrooms=LEVEL6_MUSHROOMS, beetles=level6_beetles(),
+     (3, LEVEL8_SUMMIT + 14, "The last step needs a bigger bounce: hold Up as you land")],
+    max_speed=1.8, movers=LEVEL8_MOVERS, mushrooms=LEVEL8_MUSHROOMS, beetles=level8_beetles(),
     items=["peashooter"], packs=6,
-    easy_spots={"peashooter": (LEVEL6_FIRST[0] + 3, LEVEL6_FIRST[2] - 1), "pack": (LEVEL6_FIRST[1] - 3, LEVEL6_FIRST[2] - 1)})
+    easy_spots={"peashooter": (LEVEL8_FIRST[0] + 3, LEVEL8_FIRST[2] - 1), "pack": (LEVEL8_FIRST[1] - 3, LEVEL8_FIRST[2] - 1)})
 HINTS_BY_LEVEL.update({level: cfg["hints"] for level, cfg in FLOODS.items()})
 
-# level 8 is the ice rink: the duck keeps her speed and slides. A zigzag of ledges climbs back and forth, with gaps that need a
+# level 9 is bramble hill: a zigzag of ledges climbing back and forth (like the rinks, but on grass). Hedgehogs walk up their ledge, curl at the top and
+# roll back down: peas bounce off the ball. Armadillos patrol and only a pea in the back hurts them: one that hits the front bounces back at the duck.
+HEDGE_X = ([(4 + 20 * k, 30 + 20 * k) for k in range(6)] + [(84 - 20 * k, 110 - 20 * k) for k in range(5)]
+           + [(24 + 20 * k, 50 + 20 * k) for k in range(5)] + [(84 - 20 * k, 110 - 20 * k) for k in range(5)])  # right, left, right, left: 21 ledges
+HEDGE_LEDGES = [(x0, x1, GROUND - STEP * k) for k, (x0, x1) in enumerate(HEDGE_X, 1)]
+HEDGE_COINS = [(x, GROUND - 1) for x in (45, 75, 105, 135)]
+HEDGE_COINS += [((min(HEDGE_X[k - 1][1], HEDGE_X[k][1]) + max(HEDGE_X[k - 1][0], HEDGE_X[k][0])) // 2, GROUND - STEP * k - 4) for k in (3, 6, 9, 12, 15, 18)]
+
+
+HEDGE_MUSH_LEDGES = (4, 14)  # a mushroom at the left end of each of these ledges throws her up to the ledge 4 above it, in the same columns
+HEDGE_MUSHROOMS = [(HEDGE_X[k - 1][0], GROUND - STEP * k) for k in HEDGE_MUSH_LEDGES]
+HEDGE_MOVERS = [{"w": 12, "n": 8, "lo": 98, "hi": 128, "step": MOVER_STEP / 2}]  # a sliding ledge a jump above ledge 7, with a coin hovering over it
+HEDGE_COINS += [(x0 + 2, floor - 7) for x0, floor in HEDGE_MUSHROOMS] + [(115, GROUND - STEP * 8 - 4)]
+
+
+def hedge_patrol(k):
+    """A patrol across ledge k (1-based), with the direction of the next ledge as its uphill; it stays clear of the ledge's mushroom."""
+    x0, x1 = HEDGE_X[k - 1]
+    return x0 + 1 + (MUSH_W + 1 if k in HEDGE_MUSH_LEDGES else 0), x1 - ENEMY_W, GROUND - STEP * k, 1 if HEDGE_X[k][0] > x0 else -1
+
+
+HEDGE_HEDGEHOGS = [(36, 100, GROUND, 1)] + [hedge_patrol(k) for k in (2, 5, 8, 11, 14, 17, 20)]  # (patrol lo, hi, floor row, uphill direction)
+HEDGE_BEETLES = [hedge_patrol(k)[:3] for k in (4, 10, 16)]
+HEDGE_MITES = [(lo, x1 - MITE_W + 1, floor) for k in (1, 7, 13, 19) for lo, x1, floor in [(HEDGE_X[k - 1][0] + (14 if k == 1 else 1), HEDGE_X[k - 1][1], GROUND - STEP * k)]]  # the first one starts clear of the duck
+HEDGE_ARMADILLOS = [(105, 140, GROUND)] + [hedge_patrol(k)[:3] for k in (3, 6, 9, 12, 15, 18)]
+HEDGE = {"summit": HEDGE_LEDGES[-1][2], "ledges": HEDGE_LEDGES, "coins": HEDGE_COINS, "hedgehogs": HEDGE_HEDGEHOGS, "armadillos": HEDGE_ARMADILLOS, "beetles": HEDGE_BEETLES, "mites": HEDGE_MITES,
+         "movers": HEDGE_MOVERS, "mushrooms": HEDGE_MUSHROOMS,
+         "start_x": 8, "items": ["peashooter"], "packs": 12,
+         "easy_spots": {"peashooter": (HEDGE_LEDGES[0][0] + 3, HEDGE_LEDGES[0][2] - 1), "pack": (HEDGE_LEDGES[0][1] - 3, HEDGE_LEDGES[0][2] - 1)},
+         "hints": []}
+# level 11 is the ice rink: the duck keeps her speed and slides. A zigzag of ledges climbs back and forth, with gaps that need a
 # running start (a gap of 1 or 2 columns needs about 9 or 13 columns a second, and the jump has to leave from the last column or two).
 ICE_MAX = 22.0  # top speed in columns per second (the same as walking)
 ICE_ACCEL = 16.0  # columns per second gained each second while a direction is held
@@ -428,21 +541,24 @@ ICE_BRAKE = 40.0  # ...and while sitting: Down is the brake
 GRASS_DRAG = 120.0  # leaving the ice: the leftover speed on grass dies away this fast (columns per second each second)
 ICE_RECOIL = 14.0  # the pea-shooter kicks her backwards by this much speed
 ICE_X = [(4, 28), (26, 47), (45, 65), (63, 80), (78, 93), (91, 104), (102, 115),  # to the right: each ledge overlaps the last by 2 to 4 columns...
-         (92, 105), (82, 95), (72, 85), (62, 75), (52, 65), (42, 55), (32, 45), (22, 35)]  # ...and back to the left
+         (92, 105), (82, 95), (72, 85), (62, 75), (52, 65), (42, 55), (32, 45), (22, 35),  # ...and back to the left
+         (33, 60), (58, 88), (86, 120)]  # then three larger platforms at the top
 ICE_LEDGES = [(x0, x1, GROUND - STEP * k) for k, (x0, x1) in enumerate(ICE_X, 1)]
 ICE_COINS = [(x, GROUND - 1) for x in (45, 75, 105, 135)]  # on the rink floor
 ICE_COINS += [((min(ICE_X[k - 1][1], ICE_X[k][1]) + max(ICE_X[k - 1][0], ICE_X[k][0])) // 2, GROUND - STEP * k - 4) for k in (3, 6, 9, 12)]  # hovering over some of the gaps
 ICE_SUMMIT = ICE_LEDGES[-1][2]
 ICE_BEETLES = [(66, 100, GROUND)] + [(ICE_X[k - 1][0] + 1, ICE_X[k - 1][1] - ENEMY_W, GROUND - STEP * k) for k in (2, 4, 6)]
-ICE = {"summit": ICE_SUMMIT, "ledges": ICE_LEDGES, "coins": ICE_COINS, "beetles": ICE_BEETLES, "start_x": 20, "items": ["peashooter"], "packs": 6,
+ICE = {"summit": ICE_SUMMIT, "ledges": ICE_LEDGES, "coins": ICE_COINS, "beetles": ICE_BEETLES, "hedgehogs": [(105, 140, GROUND, 1), (ICE_X[16][0] + 1, ICE_X[16][1] - ENEMY_W, GROUND - STEP * 17, 1)],
+       "armadillos": [(ICE_X[2][0] + 1, ICE_X[2][1] - ENEMY_W, GROUND - STEP * 3), (ICE_X[17][0] + 1, ICE_X[17][1] - ENEMY_W, GROUND - STEP * 18)], "start_x": 20, "items": ["peashooter"], "packs": 6,
        "easy_spots": {"peashooter": (ICE_LEDGES[0][0] + 3, ICE_LEDGES[0][2] - 1), "pack": (ICE_LEDGES[0][1] - 3, ICE_LEDGES[0][2] - 1)},
        "hints": [(3, GROUND - 14, "Ice! You keep sliding after you let go: press Down to sit and brake"),
                  (3, GROUND - 12, "Take a run-up to jump the gaps: you can hardly steer in the air"),
                  (3, GROUND - 10, "Shooting (Space) kicks you backwards: use it to slow down, or shoot while you slide"),
                  (3, GROUND - 8, "Falling only drops you down. 'a': achievements")]}
-HINTS_BY_LEVEL[8] = ICE["hints"]
+HINTS_BY_LEVEL[HEDGE_LEVEL] = HEDGE["hints"]
+HINTS_BY_LEVEL[11] = ICE["hints"]
 
-# level 9 is a harder rink: narrower ledges that still overlap their neighbours by a few columns, a sliding ledge that carries her over a gap too wide to
+# level 12 is a harder rink: narrower ledges that still overlap their neighbours by a few columns, a sliding ledge that carries her over a gap too wide to
 # jump, and a mushroom that throws her up to a ledge 9 rows above (a plain jump is 5).
 ICE2_X = [(4, 28), (26, 48), (46, 66), (64, 84), (82, 100), (117, 136),  # to the right (the sliding ledge fills the gap before the 6th)...
           (110, 126), (96, 112), (82, 98)]  # ...back to the left; a mushroom on the last of these throws her to the next
@@ -462,16 +578,16 @@ ICE2 = {"summit": ICE2_LEDGES[-1][2], "ledges": ICE2_LEDGES, "coins": ICE2_COINS
         "hints": [(3, GROUND - 14, "A harder rink: the gaps are back, and so are the beetles"),
                   (3, GROUND - 12, "The wide gap is crossed by riding the sliding ledge"),
                   (3, GROUND - 10, "A mushroom [(@o@)] throws you high: hold Up as you land for more. 'a': achievements")]}
-ICE_CONFIGS = {8: ICE, 9: ICE2}
-HINTS_BY_LEVEL[9] = ICE2["hints"]
+ICE_CONFIGS = {HEDGE_LEVEL: HEDGE, 11: ICE, 12: ICE2}
+HINTS_BY_LEVEL[12] = ICE2["hints"]
 
-# level 10 is the grand tour, by far the biggest level: GRAND_W columns wide and as tall as level 6 (more than twice its area). It uses
+# level 13 is the grand tour, by far the biggest level: GRAND_W columns wide and as tall as level 8 (more than twice its area). It uses
 # every mechanic in turn, left to right: an icy rink (the ice stops at GRAND_ICE_X), a sliding ledge, three mushrooms up to a
 # long launch ledge, a chasm 60 columns wide that can only be crossed by gliding (hold Up while falling), and a
 # windy mushroom tower on the far side. The umbrella is a secret: it is off the path, high above the rink. Beetles patrol all along and the pea-shooter is on the first ledge.
 GRAND_W = 392
 GRAND_ICE_X = 107
-GRAND_TOWER_DX = 261  # the tower reuses level 4's mushroom tower, shifted right and 18 rows down so that it starts on the far ledge
+GRAND_TOWER_DX = 261  # the tower reuses level 6's mushroom tower, shifted right and 18 rows down so that it starts on the far ledge
 GRAND_CHASM = (262, 322)  # the launch ledge ends and the far ledge begins
 _rink = [(4, 26), (24, 46), (44, 66), (64, 86), (84, 106)]
 _grand = [(x0, x1, GROUND - STEP * k) for k, (x0, x1) in enumerate(_rink, 1)]
@@ -483,16 +599,16 @@ _secret = [(2, 22, GROUND - 9), (20, 40, GROUND - 13), (38, 58, GROUND - 17), (5
            (38, 58, GROUND - 24), (20, 40, GROUND - 28), (2, 22, GROUND - 32),
            (20, 40, GROUND - 36), (38, 58, GROUND - 40), (56, 76, GROUND - 44), (74, 94, GROUND - 48), (92, 112, GROUND - 52)]
 _grand += _secret
-_tower, _tower_mushrooms = mushroom_tower(LEVEL6_DRIFT)
+_tower, _tower_mushrooms = mushroom_tower(LEVEL8_DRIFT)
 _tower = [(x0 + GRAND_TOWER_DX, x1 + GRAND_TOWER_DX, floor + 18) for x0, x1, floor in _tower]
 GRAND_MUSHROOMS = [(0, GROUND), (166, GROUND - 21), (182, GROUND - 29), (200, GROUND - 37)] + [(x + GRAND_TOWER_DX, floor + 18) for x, floor in _tower_mushrooms]
-GRAND_MOVERS = [{"w": 12, "n": 5, "lo": 104, "hi": 124, "step": MOVER_STEP / 2}]  # level 5 height: overlaps the rink's last ledge and the one after the gap
+GRAND_MOVERS = [{"w": 12, "n": 5, "lo": 104, "hi": 124, "step": MOVER_STEP / 2}]  # level 7 height: overlaps the rink's last ledge and the one after the gap
 
 
 def ledge_patrol(ledge, mushrooms):
     """A beetle's patrol on a ledge, kept clear of the mushroom at its end."""
     x0, x1, floor = ledge
-    m = {f: mx for mx, f in mushrooms}.get(floor)
+    m = {f: mx for mx, f in mushrooms if x0 <= mx <= x1}.get(floor)  # only a mushroom on this ledge
     if m is None:
         return x0 + 2, x1 - ENEMY_W - 1, floor
     if m - x0 > x1 - (m + MUSH_W - 1):
@@ -522,14 +638,14 @@ GRAND = {"summit": _tower[-1][2], "ledges": _grand + _tower, "coins": GRAND_COIN
                    (262, GROUND - 66, "Gusts blow up high: hold Down to sit and brace")]}
 ICE_CONFIGS[GRAND_LEVEL] = GRAND  # shares the shape of the ice tables (summit, ledges, coins, beetles...)
 HINTS_BY_LEVEL[GRAND_LEVEL] = GRAND["hints"]
-SCREEN_VIEW_H = 20  # rows needed to see the whole level (levels 1-3)
-LEVEL2_BEETLES = [(38, 70, 0), (16, 26, 2), (46, 56, 2), (36, 46, 3),
-                  (84, 138, 0), (91, 101, 2), (121, 131, 2), (111, 121, 3)]  # (patrol lo, patrol hi, ledge level)
+SCREEN_VIEW_H = 20  # rows needed to see the whole level (levels 1-4)
+LEVEL4_BEETLES = [(148, 162, 3), (118, 184, 0),  # hill 2: just two, spaced out, so she can learn to shoot a beetle from range
+                  (216, 224, 2), (225, 234, 3), (246, 258, 5), (259, 270, 4), (271, 282, 3), (283, 294, 2), (196, 250, 0)]  # hill 3  (patrol lo, patrol hi, ledge level)
 NEST_SIZE = 3
 COIN = "$"
 COIN_TWINKLE_PERIOD = 30.0  # level 1: each dollar twinkles briefly this often
 BIRD_FLOCKS = {1: [(28.0, 14.0, 4.0, GROUND - 17, -1)],
-               2: [(24.0, 13.0, 0.0, GROUND - 18, -1), (31.0, 15.0, 9.0, GROUND - 13, 1)]}  # (every s, crossing s, offset, row, direction)
+               4: [(24.0, 13.0, 0.0, GROUND - 18, -1), (31.0, 15.0, 9.0, GROUND - 13, 1)]}  # (every s, crossing s, offset, row, direction)
 C_BIRD = "90"
 PATCH_SIT_TIME = 1.2  # level 1: sitting on the springy patch this long drops her into the hidden chamber
 CH_X0, CH_X1 = 24, 124  # the cavern under the grass: a room carved into the rock below level 1's ground
@@ -538,48 +654,59 @@ CH_LEDGES = [(CH_X0, CH_X1, CH_FLOOR),
              (26, 38, CH_FLOOR - 4), (32, 44, CH_FLOOR - 8), (26, 38, CH_FLOOR - 12), (32, 44, CH_FLOOR - 16), (26, 38, CH_FLOOR - 20),  # the stairs back up
              (70, 84, CH_FLOOR - 3), (82, 96, CH_FLOOR - 6), (94, 108, CH_FLOOR - 9), (104, 120, CH_FLOOR - 12)]
 CH_GEM = (112, CH_FLOOR - 13)
-# level 2's secret: invisible ledges that appear when she lands on them, zigzagging up past the top of the screen to a pink gem
-HIDDEN2 = [(90, 103, GROUND - 12), (74, 94, GROUND - 16), (88, 108, GROUND - 20), (74, 94, GROUND - 24),
-           (88, 108, GROUND - 28), (74, 94, GROUND - 32), (88, 108, GROUND - 36)]
-# level 3's secret: jump from the left end of the low sliding ledge while it is near its leftmost position
-HIDDEN3 = [(36, 52, GROUND - 13), (46, 60, GROUND - 17), (30, 46, GROUND - 21), (44, 58, GROUND - 25),
+# level 4's secret: invisible ledges that appear when she lands on them, zigzagging up past the top of the screen to a pink gem
+SECRET4_DX, SECRET4_DY = 143, -6  # the secret sits above the top ledge of the third hill (244..262, level 5)
+HIDDEN4 = [(x0 + SECRET4_DX, x1 + SECRET4_DX, floor + SECRET4_DY) for x0, x1, floor in
+           [(90, 103, GROUND - 12), (74, 94, GROUND - 16), (88, 108, GROUND - 20), (74, 94, GROUND - 24),
+            (88, 108, GROUND - 28), (74, 94, GROUND - 32), (88, 108, GROUND - 36)]]
+# level 5's secret: jump from the left end of the low sliding ledge while it is near its leftmost position
+HIDDEN5 = [(36, 52, GROUND - 13), (46, 60, GROUND - 17), (30, 46, GROUND - 21), (44, 58, GROUND - 25),
            (30, 46, GROUND - 29), (44, 58, GROUND - 33), (30, 46, GROUND - 37)]
-# level 6's secret: a lone ledge half way up the tower, far out to the right. It can only be reached by walking off a high ledge
+# level 8's secret: a lone ledge half way up the tower, far out to the right. It can only be reached by walking off a high ledge
 # and drifting down onto it (she covers about one column sideways for every two rows she falls). Jumping from its right end reveals a climb.
-LONE6 = (106, 126, GROUND - 90)
-HIDDEN6 = [(120, 134, GROUND - 94), (126, 140, GROUND - 98), (120, 134, GROUND - 102), (126, 140, GROUND - 106),
+LONE8 = (106, 126, GROUND - 90)
+HIDDEN8 = [(120, 134, GROUND - 94), (126, 140, GROUND - 98), (120, 134, GROUND - 102), (126, 140, GROUND - 106),
            (120, 134, GROUND - 110), (126, 140, GROUND - 114), (120, 134, GROUND - 118)]  # to the right, so a falling duck lands on the lone ledge first
-# level 7's secret: when the rain starts, a cloud drifts back and forth beside the tower; riding it to the right end reaches a pink gem
+# level 10's secret: when the rain starts, a cloud drifts back and forth beside the tower; riding it to the right end reaches a pink gem
 CLOUD_DROP = 6  # rows the water falls when she first lands on the cloud
 CLOUD_CFG = {"w": 10, "lo": 86, "hi": 128, "step": MOVER_STEP / 2}
 CLOUD_FLOOR = GROUND - 51
-HIDDEN_LEDGES = {2: HIDDEN2, 3: HIDDEN3, 6: HIDDEN6}
-# level 5's secret: drowning while standing on the grass sinks her into a cavern where a mermaid revives her and a hidden room opens
-MERMAID_LEVEL, MERMAID_X, MERMAID_REVIVE, ROOM_OPEN_SPEED, MERMAID_FLOAT = 5, 40, 2.5, 50.0, 3.5  # (mermaid column, seconds of revival, columns/s the rock opens)
+# level 2's secret: a full chorus of quacks (MAX_QUACKS in one breath) on top of a hill makes a hidden ledge appear (hill 1's above hill 1, hill 2's above that one); once both are there the gem shows
+LEVEL2_TOPS = [(50, 70, GROUND - 3 * STEP), (140, 160, GROUND - 3 * STEP)]  # the top ledge of each hill: where she has to quack
+HIDDEN2 = [(56, 68, GROUND - 4 * STEP), (58, 70, GROUND - 5 * STEP)]  # the ledges that appear: one above hill 1's top, and a second stacked above it (the second chorus, on hill 2, builds it)
+# level 3's secret: having MITES_FOR_SECRET mites stunned at the same moment makes a staircase of hidden ledges appear above hill 2, leading up to the gem
+MITES_FOR_SECRET = 6
+HIDDEN3 = [(x0 + LEVEL3_SHIFT, x1 + LEVEL3_SHIFT, y) for x0, x1, y in [(186, 200, GROUND - 4 * STEP), (196, 210, GROUND - 5 * STEP), (186, 200, GROUND - 6 * STEP), (196, 210, GROUND - 7 * STEP), (186, 200, GROUND - 8 * STEP)]]  # a zigzag up from hill 2's top ledge
+REVEALED_LEVELS = (2, 3)  # levels whose hidden ledges are added when the secret is triggered, not at the start
+HIDDEN_LEDGES = {2: HIDDEN2, 3: HIDDEN3, 4: HIDDEN4, 5: HIDDEN5, 8: HIDDEN8}
+# level 7's secret: drowning while standing on the grass sinks her into a cavern where a mermaid revives her and a hidden room opens
+MERMAID_LEVEL, MERMAID_X, MERMAID_REVIVE, ROOM_OPEN_SPEED, MERMAID_FLOAT = 7, 40, 2.5, 50.0, 3.5  # (mermaid column, seconds of revival, columns/s the rock opens)
 MER_X0, MER_X1, ROOM_X0 = 4, SCREEN_W - 4, 52
 MER_LEDGES = [(MER_X0, MER_X1, CH_FLOOR), (6, 18, CH_FLOOR - 4), (12, 24, CH_FLOOR - 8), (6, 18, CH_FLOOR - 12), (12, 24, CH_FLOOR - 16),
               (6, 18, CH_FLOOR - 20)]  # the floor and the stairs back up
 MER_ROOM_LEDGES = [(54, 62, CH_FLOOR - 3), (60, 68, CH_FLOOR - 6), (66, 74, CH_FLOOR - 9)]  # the hidden room's steps, added when it opens
 MER_GEM = (70, CH_FLOOR - 10)
-# level 4's secret: walking to the right end of the summit ledge makes a mushroom sprout; it bounces her (with Up held) up to a pink gem
+# level 6's secret: walking to the right end of the summit ledge makes a mushroom sprout; it bounces her (with Up held) up to a pink gem
 SECRET_TRIGGER = 95  # her centre column on the summit ledge that makes the mushroom appear
 SECRET_MUSHROOM = (88, SUMMIT)
 SECRET_GEM = (90, SUMMIT - 18)
 MERMAID_SAYS = "Be careful little duck!"
 MERMAID = [" .-. ", "(o.o)", " )~( ", "/~~~\\"]
-GEM_SPOTS = {1: CH_GEM, 2: (98, GROUND - 37), 3: (38, GROUND - 38), 6: (130, GROUND - 119), 7: (134, CLOUD_FLOOR - 2), MERMAID_LEVEL: MER_GEM, 4: SECRET_GEM}
-HINT_LEDGE2 = (101, 115, GROUND - 9)  # the top ledge whose left end glows faintly while she stands on it
-HINT_LEDGES = {2: (HINT_LEDGE2, "left"), 6: (LONE6, "right")}  # the ledge that hints at the hidden ledge, and which end glows
+GEM_SPOTS = {1: CH_GEM, 3: (193 + LEVEL3_SHIFT, GROUND - 8 * STEP - 1), 2: (64, GROUND - 5 * STEP - 1), 4: (98 + SECRET4_DX, GROUND - 37 + SECRET4_DY), 5: (38, GROUND - 38), 8: (130, GROUND - 119), 10: (134, CLOUD_FLOOR - 2), MERMAID_LEVEL: MER_GEM, 6: SECRET_GEM}
+HINT_LEDGE4 = (244, 262, GROUND - 5 * STEP)  # the top ledge whose left end glows faintly while she stands on it
+HINT_LEDGES = {4: (HINT_LEDGE4, "left"), 8: (LONE8, "right")}  # the ledge that hints at the hidden ledge, and which end glows
 GEM_HINTS = {
-    1: "Who doesn't love to rest through where the grass is springy.",
-    2: "Not every stair can be seen. Start where the left edge glows.",
-    3: "Ride with the beetle's neighbour, then leap from where it begins.",
-    4: "The top is not the end. Go right and the ground will answer.",
-    5: "Sometimes the deep is kind. Take a last breath where the grass ends.",
-    6: "Step off the edge, far from the climb, and a hidden ledge will catch you.",
-    7: "When the sky weeps, something floats that is meant to be ridden.",
+    1: "Lay down, down and rest where the grass is most comfy.",
+    2: "Shout from the top of each hill as long as your breath will last, then climb as high as the echoes.",
+    3: "When enough little ones have been put to sleep, a stair will rise above the second hill.",
+    4: "Not every step can be seen; take a leap of faith where the left edge gleams.",
+    5: "Ride with the beetle's neighbour, then leap from where it begins.",
+    6: "The top is not the end. Go right and the ground will answer.",
+    7: "Sometimes the deep is kind. Take a last breath where the grass ends.",
+    8: "Step off the edge, far from the climb, and a hidden ledge will catch you.",
+    10: "When the sky weeps, something floats that is meant to be ridden.",
 }
-GEM_APPEARS_AFTER = 4  # level 2's gem only shows up once this many hidden ledges have been found
+GEM_APPEARS_AFTER = 4  # level 4's gem only shows up once this many hidden ledges have been found
 REVEAL_SPEED = 40.0  # columns a second that a hidden ledge spreads out from where she landed
 GEM, C_GEM = "\u25c6", "1;95"
 SQUISH_PATCH, SQUISH_TIME = (46, 60), 0.6  # level 1: a patch of springy grass in the middle
@@ -622,6 +749,16 @@ BEETLE_TOP = [" ,^, ", "(o o)"]
 BEETLE_HIT_TIME = 0.3  # seconds a beetle flashes after a pea hits it
 BEETLE_HURT_EYES = ["(o o)", "(o x)", "(x x)"]  # by hit points lost: it stays battered
 BEETLE_FLINCH = "(>_<)"
+HEDGEHOG_HP = ARMADILLO_HP = 2
+HEDGEHOG_WALK_STEP, HEDGEHOG_ROLL_STEP = 0.25, 0.07  # seconds per column: it rolls much faster than it walks
+HEDGEHOG_CURL_TIME = 0.7  # warning at the top of its slope before it rolls
+HEDGEHOG_BALL_TIME = 2.0  # it stays curled at the bottom, then uncurls
+HEDGEHOG_WALK = [" ^^^ ", "(^^^o", " d d "]  # facing right; mirrored for left
+HEDGEHOG_CURLING = [" ^^^ ", "(^^^)", " d d "]
+HEDGEHOG_BALL = [[" \\|/ ", "-(@)-", " /|\\ "], [" /|\\ ", "-(@)-", " \\|/ "]]
+ARMADILLO = [[" ___ ", "(###>", " d d "], [" ___ ", "(###>", " b b "]]  # facing right; mirrored for left
+ARMADILLO_HIT_DAMAGE = 10.0  # a pea that bounced off its armor hurts the duck it comes back to
+C_HEDGEHOG, C_ARMADILLO, C_BOUNCED = "38;5;137", "97", "91"
 BAT_FRAMES = ["^(o)^", "v(o)v"]
 C_BEETLE = "91"
 C_BAT = "35"
@@ -670,7 +807,7 @@ KITTY_EVENT = re.compile(rb"\x1b\[(\d*)(?:;(\d*)(?::(\d+))?)?(?:;[\d:]+)?([uABCD
 ARROW = re.compile(rb"\x1b[\[O](?:1;(\d+))?([ABCD])")
 ARROW_NAMES = {b"A": "up", b"B": "down", b"C": "right", b"D": "left"}
 PLAIN_KEYS = {32: "space", 116: "egg", 102: "feed", 109: "mute", 119: "weather", 104: "hat", 80: "predator", 112: "pause",
-              103: "friend", 105: "inventory", 115: "shoot", 97: "achievements", 84: "testmenu", 13: "enter", 10: "enter", 121: "yes", 110: "no", 113: "quit", 120: "quit", 114: "restart", 49: "level1", 50: "level2", 51: "level3", 52: "level4", 53: "level5", 54: "level6", 55: "level7", 56: "level8", 57: "level9", 48: "level10", 45: "level11"}
+              103: "friend", 105: "inventory", 115: "shoot", 97: "achievements", 84: "testmenu", 13: "enter", 10: "enter", 121: "yes", 110: "no", 113: "quit", 120: "quit", 114: "restart", 49: "level1", 50: "level2", 51: "level3", 52: "level4", 53: "level5", 54: "level6", 55: "level7", 56: "level8", 57: "level9", 48: "level10", 45: "level11", 61: "level12", 92: "level13", 93: "level14"}
 KITTY_KEYS = {**PLAIN_KEYS, 27: "quit", 57441: "shift", 57447: "shift"}
 
 BLANK = (" ", None)
@@ -892,22 +1029,32 @@ def configure_level(level):
         WORLD_W, PONDS = SCREEN_W, []
         PLATFORMS = [(x0, x1, GROUND - STEP * n) for x0, x1, n in LEVEL1_LEDGES]
         LEVEL_ITEMS, PACK_TOTAL, EASY_SPOTS = [], 0, None
-    elif level == 3:
-        WORLD_W, PONDS = SCREEN_W, []
-        PLATFORMS = [(x0, x1, GROUND - STEP * n) for x0, x1, n in LEVEL3_LEDGES]
-        LEVEL_ITEMS, PACK_TOTAL = ["peashooter"], 3
-        EASY_SPOTS = {"peashooter": (98, GROUND - 2 * STEP - 1), "pack": (30, GROUND - 1)}  # the pea-shooter needs the moving ledge
     elif level == 2:
-        WORLD_W, PONDS = SCREEN_W, []
+        WORLD_W, PONDS = LEVEL2_W, []
         PLATFORMS = [(x0, x1, GROUND - STEP * n) for x0, x1, n in LEVEL2_LEDGES]
-        LEVEL_ITEMS, PACK_TOTAL = ["peashooter"], 7
-        EASY_SPOTS = {"peashooter": (9, GROUND - STEP - 1), "pack": (18, GROUND - 1)}  # the pea-shooter is on the first ledge, which no beetle patrols
-    elif level == 4:
-        WORLD_W, PONDS = SCREEN_W, []
-        moved = {GROUND - STEP * spec["n"] for spec in LEVEL4_MOVERS}
-        PLATFORMS = [p for p in LEVEL4_LEDGES if p[2] not in moved]
         LEVEL_ITEMS, PACK_TOTAL, EASY_SPOTS = [], 0, None
-    elif level in ICE_LEVELS:
+    elif level == 3:
+        WORLD_W, PONDS = LEVEL3_W, []
+        PLATFORMS = [(x0, x1, GROUND - STEP * n) for x0, x1, n in LEVEL3_LEDGES]
+        LEVEL_ITEMS, PACK_TOTAL = ["peashooter"], 8
+        EASY_SPOTS = {"peashooter": LEVEL3_SHOOTER, "pack": LEVEL3_PACK}
+    elif level == 5:
+        WORLD_W, PONDS = LEVEL5_W, []
+        PLATFORMS = [(x0, x1, GROUND - STEP * n) for x0, x1, n in LEVEL5_LEDGES]
+        LEVEL_ITEMS, PACK_TOTAL = ["peashooter"], 5
+        EASY_SPOTS = {"peashooter": (98, GROUND - 2 * STEP - 1), "pack": (30, GROUND - 1)}  # the pea-shooter needs the moving ledge
+    elif level == 4:
+        WORLD_W, PONDS = LEVEL4_W, []
+        PLATFORMS = [(x0, x1, GROUND - STEP * n) for x0, x1, n in LEVEL4_LEDGES]
+        LEVEL_ITEMS, PACK_TOTAL = ["peashooter"], 10
+        EASY_SPOTS = {"peashooter": LEVEL4_SHOOTER, "pack": LEVEL4_PACK}
+    elif level == 6:
+        WORLD_W, PONDS = SCREEN_W, []
+        moved = {GROUND - STEP * spec["n"] for spec in LEVEL6_MOVERS}
+        PLATFORMS = [p for p in LEVEL6_LEDGES if p[2] not in moved]
+        LEVEL_ITEMS, PACK_TOTAL = ["peashooter"], 4
+        EASY_SPOTS = {"peashooter": LEVEL6_SHOOTER, "pack": LEVEL6_PACK}  # the shooter waits a third of the way up, past the mites
+    elif level in ICE_LEVELS or level == HEDGE_LEVEL:
         WORLD_W, PONDS = SCREEN_W, []
         cfg = ICE_CONFIGS[level]
         PLATFORMS = list(cfg["ledges"])
@@ -919,15 +1066,15 @@ def configure_level(level):
     elif level in FLOODS:
         WORLD_W, PONDS = SCREEN_W, []
         cfg = FLOODS[level]
-        PLATFORMS = [p for p in cfg["ledges"] if p[2] not in (LEVEL6_MOVER_ROWS if level == 6 else ())]  # sliding ledges replace some
+        PLATFORMS = [p for p in cfg["ledges"] if p[2] not in (LEVEL8_MOVER_ROWS if level == 8 else ())]  # sliding ledges replace some
         LEVEL_ITEMS, PACK_TOTAL, EASY_SPOTS = cfg.get("items", []), cfg.get("packs", 0), cfg.get("easy_spots")
     else:
         WORLD_W, PONDS = 2400, [150, 1000, 1800]  # the lakes: there are always at least three
         PLATFORMS = build_platforms()
         LEVEL_ITEMS, PACK_TOTAL = list(ITEMS), 14
         EASY_SPOTS = None
-    MOVERS = LEVEL3_MOVERS if level == 3 else LEVEL4_MOVERS if level == 4 else LEVEL6_MOVERS if level == 6 else ICE2["movers"] if level == 9 else GRAND_MOVERS if level == GRAND_LEVEL else []
-    MUSHROOMS = list(LEVEL4_MUSHROOMS) if level == 4 else LEVEL6_MUSHROOMS if level == 6 else ICE2["mushrooms"] if level == 9 else GRAND_MUSHROOMS if level == GRAND_LEVEL else []
+    MOVERS = LEVEL5_MOVERS if level == 5 else LEVEL6_MOVERS if level == 6 else LEVEL8_MOVERS if level == 8 else HEDGE["movers"] if level == HEDGE_LEVEL else ICE2["movers"] if level == 12 else GRAND_MOVERS if level == GRAND_LEVEL else []
+    MUSHROOMS = list(LEVEL6_MUSHROOMS) if level == 6 else LEVEL8_MUSHROOMS if level == 8 else HEDGE["mushrooms"] if level == HEDGE_LEVEL else ICE2["mushrooms"] if level == 12 else GRAND_MUSHROOMS if level == GRAND_LEVEL else []
     CAVE, PEARL_SPOTS = build_caves()
     START_LEDGES = sorted(p for p in PLATFORMS if p[2] == GROUND - STEP)[:2]  # the first low ledges next to the duck's start
     PLATFORMS_BY_X = [[] for _ in range(WORLD_W // BUCKET + 2)]  # ledges grouped by x, for fast lookups
@@ -942,12 +1089,16 @@ def configure_level(level):
     COINS = [((x0 + x1) // 2, floor - 1) for x0, x1, floor in PLATFORMS]  # one hovering over each ledge
     if level == 1:
         COINS += LEVEL1_COINS
+    elif level == 2:
+        COINS += LEVEL2_COINS
     elif level == 3:
         COINS += LEVEL3_COINS
-    elif level == 2:
-        COINS += [(x, GROUND - 1) for x in (34, 44, 75, 109, 119)]
     elif level == 4:
         COINS += LEVEL4_COINS
+    elif level == 5:
+        COINS += LEVEL5_COINS
+    elif level == 6:
+        COINS += LEVEL6_COINS
     elif level in ICE_CONFIGS:
         COINS += ICE_CONFIGS[level]["coins"]
     elif level in FLOODS:
@@ -970,15 +1121,17 @@ class World:
         if level == MERMAID_LEVEL:
             for p in MER_LEDGES:
                 add_platform(p)
-        self.secret_shown = False  # level 4: the summit mushroom has sprouted
-        self.mermaid_cave = self.mermaid_pending = False  # level 5: she sank through the grass into the mermaid's cavern
-        self.float_t0 = self.float_x0 = None  # level 5: the drowned duck drifts down to the mermaid
+        self.secret_shown = False  # level 6: the summit mushroom has sprouted
+        self.mermaid_cave = self.mermaid_pending = False  # level 7: she sank through the grass into the mermaid's cavern
+        self.float_t0 = self.float_x0 = None  # level 7: the drowned duck drifts down to the mermaid
         self.mermaid_t0 = self.room_open = None  # when she landed there, and when the hidden room opened
-        if level == 6:
-            add_platform(LONE6)
+        if level == 8:
+            add_platform(LONE8)
         self.hidden = HIDDEN_LEDGES.get(level, [])
         for p in self.hidden:
-            add_platform(p)
+            if level not in REVEALED_LEVELS:  # their ledges only appear once the secret is triggered
+                add_platform(p)
+        self.max_stunned = 0  # most mites stunned at the same moment (not shown)
         self.revealed = {}  # hidden ledge -> (time, column) it appeared
         self.gems = self.gems_at_start = gems  # pink gems carry from level to level
         self.gem_taken = False
@@ -989,7 +1142,7 @@ class World:
         self.beetle_target = BEETLE_COUNT if level == LAST_LEVEL else 0
         self.view_w = 80
         self.view_h = DEFAULT_VIEW_H
-        self.x = {1: LEVEL1_START_X, 2: LEVEL2_START_X, 3: LEVEL3_START_X, 4: LEVEL4_START_X, 8: ICE["start_x"], 9: ICE2["start_x"], GRAND_LEVEL: GRAND["start_x"]}.get(level) or FLOODS.get(level, {}).get("start_x", 30)
+        self.x = {1: LEVEL1_START_X, 2: LEVEL2_START_X, 3: LEVEL3_START_X, 4: LEVEL4_START_X, 5: LEVEL5_START_X, 6: LEVEL6_START_X, HEDGE_LEVEL: HEDGE["start_x"], 11: ICE["start_x"], 12: ICE2["start_x"], GRAND_LEVEL: GRAND["start_x"]}.get(level) or FLOODS.get(level, {}).get("start_x", 30)
         self.feet = GROUND  # row of the duck's feet
         self.floor = GROUND  # row of the floor she last stood on
         self.airborne = False
@@ -1007,14 +1160,14 @@ class World:
         self.rise_rows = JUMP_ROWS
         self.plunged = {}  # mushroom (x0, floor) -> when she last landed on it
         self.wind = None  # the current gust: {dir, start, end, push}
-        self.next_gust = now + 5.0 if level in (4, 6, GRAND_LEVEL) else float("inf")
+        self.next_gust = now + 5.0 if level in (6, 8, GRAND_LEVEL) else float("inf")
         self.flood_cfg = FLOODS.get(level)
-        self.flood = GROUND + 1 if self.flood_cfg else None  # row of the rising water's surface (levels 5 to 7)
+        self.flood = GROUND + 1 if self.flood_cfg else None  # row of the rising water's surface (levels 7 and 10)
         self.fish_t = now
         self.school = [{"x": random.uniform(0, WORLD_W - 3), "y": random.randint(FLOODS[level]["top"] + 2, GROUND - 2),
                         "dir": random.choice((-1, 1)), "speed": random.uniform(3.0, 7.0)} for _ in range(FLOOD_FISH)] if level in FLOODS else []
         self.drowned = None  # when she drowned: the dying animation, then a prompt to restart
-        self.died = False  # level 2: knocked out, waiting for space to restart
+        self.died = False  # level 3: knocked out, waiting for space to restart
         self.drown_t0 = None  # when her head went under the flood
         self.rain_t0 = None  # when the rain (and the water's acceleration) started
         self.surge_t0 = None  # when she passed the surge ledge and the water sped up again
@@ -1125,7 +1278,7 @@ class World:
         self.weathers_seen = set()
         if level == 1:
             self.next_predator = float("inf")  # the first level has no enemies at all
-        if level in (3, 4, 6, 9, GRAND_LEVEL):
+        if level in (5, 6, 8, HEDGE_LEVEL, 12, GRAND_LEVEL):
             for spec in MOVERS:
                 lo, w, floor = spec["lo"], spec["w"], GROUND - STEP * spec["n"]
                 m = {"x0": lo, "w": w, "floor": floor, "lo": lo, "hi": spec["hi"], "step": spec["step"], "dir": 1, "next": 0.0}
@@ -1136,8 +1289,39 @@ class World:
         for lo, hi, floor in (ICE_CONFIGS.get(level) or self.flood_cfg or {}).get("beetles", ()):
             self.enemies.append({"kind": "beetle", "x": lo, "y": floor, "lo": lo, "hi": hi, "dir": 1,
                                  "hp": BEETLE_HP, "next": 0.0, "step": 0})
+        for i, (lo, hi, floor, up) in enumerate(ICE_CONFIGS.get(level, {}).get("hedgehogs", ())):
+            self.enemies.append({"kind": "hedgehog", "x": lo if up > 0 else hi, "y": floor, "lo": lo, "hi": hi, "dir": up, "up": up,
+                                 "hp": HEDGEHOG_HP, "next": now + 1.0 + 0.7 * i, "step": 0, "state": "ball"})  # curled until its first walk
+        for lo, hi, floor in ICE_CONFIGS.get(level, {}).get("mites", ()):
+            self.enemies.append({"kind": "mite", "x": lo, "y": floor, "lo": lo, "hi": hi,
+                                 "dir": 1, "hp": 1, "next": 0.0, "step": 0, "stun": 0.0})
+        for lo, hi, floor in ICE_CONFIGS.get(level, {}).get("armadillos", ()):
+            self.enemies.append({"kind": "armadillo", "x": lo, "y": floor, "lo": lo, "hi": hi, "dir": 1,
+                                 "hp": ARMADILLO_HP, "next": 0.0, "step": 0})
         if level == 2:
-            for lo, hi, n in LEVEL2_BEETLES:
+            for lo, hi, n in LEVEL2_MITES:
+                self.enemies.append({"kind": "mite", "x": lo, "y": GROUND - STEP * n, "lo": lo, "hi": hi,
+                                     "dir": 1, "hp": 1, "next": 0.0, "step": 0, "stun": 0.0})
+        if level == 3:
+            for lo, hi, n in LEVEL3_MITES:
+                self.enemies.append({"kind": "mite", "x": lo, "y": GROUND - STEP * n, "lo": lo, "hi": hi,
+                                     "dir": 1, "hp": 1, "next": 0.0, "step": 0, "stun": 0.0})
+        if level == 6:
+            for lo, hi, floor in LEVEL6_MITES:
+                self.enemies.append({"kind": "mite", "x": lo, "y": floor, "lo": lo, "hi": hi,
+                                     "dir": 1, "hp": 1, "next": 0.0, "step": 0, "stun": 0.0})
+            for lo, hi, floor in LEVEL6_BEETLES:
+                self.enemies.append({"kind": "beetle", "x": lo, "y": floor, "lo": lo, "hi": hi,
+                                     "dir": 1, "hp": BEETLE_HP, "next": 0.0, "step": 0})
+        if level == 5:
+            for lo, hi, n in LEVEL5_BEETLES:
+                self.enemies.append({"kind": "beetle", "x": lo, "y": GROUND - STEP * n, "lo": lo, "hi": hi,
+                                     "dir": 1, "hp": BEETLE_HP, "next": 0.0, "step": 0})
+        if level == 4:
+            for lo, hi, n in LEVEL4_MITES:
+                self.enemies.append({"kind": "mite", "x": lo, "y": GROUND - STEP * n, "lo": lo, "hi": hi,
+                                     "dir": 1, "hp": 1, "next": 0.0, "step": 0, "stun": 0.0})
+            for lo, hi, n in LEVEL4_BEETLES:
                 self.enemies.append({"kind": "beetle", "x": lo, "y": GROUND - STEP * n, "lo": lo, "hi": hi,
                                      "dir": 1, "hp": BEETLE_HP, "next": 0.0, "step": 0})
         self.enemy_total = len(self.enemies)
@@ -1215,7 +1399,7 @@ class World:
             self.running = pressed and self.level == LAST_LEVEL  # running is only for the final level
             return
         if name == "space":
-            if pressed and "peashooter" in self.inventory:
+            if pressed and "peashooter" in self.inventory and self.ammo > 0:
                 if self.quack_start is None:
                     self.shoot(now)
             elif pressed and self.quack_start is None:
@@ -1308,7 +1492,7 @@ class World:
     def update_level_goals(self, now):
         if self.level < LAST_LEVEL and not self.coins:
             self.unlock("allcoins", now)
-        if self.level == 4 and not self.airborne and self.feet <= SUMMIT:
+        if self.level == 6 and not self.airborne and self.feet <= SUMMIT:
             self.unlock("summit", now)
         if self.flood_cfg and not self.airborne and self.feet <= self.flood_cfg["summit"]:
             self.unlock("summit", now)
@@ -1328,7 +1512,7 @@ class World:
         young = [{"x": c["x"], "fy": c["fy"], "facing": c["facing"], "trait": c["trait"],
                   "age": now - c["born"] + c["bonus"]} for c in self.young]
         return {
-            "version": 14, "flood_age": None if self.flood_t0 is None or self.mermaid_cave else now - self.flood_t0,
+            "version": 17, "flood_age": None if self.flood_t0 is None or self.mermaid_cave else now - self.flood_t0,
             "rain_age": None if self.rain_t0 is None else now - self.rain_t0,
             "surge_age": None if self.surge_t0 is None else now - self.surge_t0, "level": self.level, "kills": self.kills, "unlocked": sorted(self.unlocked), "golden": self.golden, "hat": self.hat,
             "coins": [list(c) for c in COINS if c not in self.coins],
@@ -1375,9 +1559,12 @@ class World:
         self.gems = max(0, int(data.get("gems", 0)))
         self.gems_at_start = clamp(int(data.get("gems_start", self.gems)), 0, self.gems)
         self.gem_taken = bool(data.get("gem_taken")) and self.level in GEM_SPOTS
-        if data.get("secret") and self.level == 4:
+        if data.get("secret") and self.level == 6:
             self.show_secret_mushroom(now)
         self.revealed = {self.hidden[i]: (-99.0, 0) for i in data.get("revealed", []) if 0 <= int(i) < len(self.hidden)}
+        if self.level in REVEALED_LEVELS:
+            for p in self.revealed:
+                add_platform(p)
         self.facing = 1 if data.get("facing", 1) >= 0 else -1
         self.x = clamp(int(data["x"]), 0, WORLD_W - DUCK_W)
         if self.flood is not None:
@@ -1420,7 +1607,7 @@ class World:
         return clamp(self.x + DUCK_W // 2 - self.view_w // 2, 0, WORLD_W - self.view_w)
 
     def camera_target_y(self):
-        if self.level <= 3 and self.view_h >= SCREEN_VIEW_H and self.feet <= GROUND and self.floor - DUCK_H - 1 >= SURFACE_H - self.view_h:  # (unless she has climbed above the screen)
+        if self.level <= 5 and self.view_h >= SCREEN_VIEW_H and self.feet <= GROUND and self.floor - DUCK_H - 1 >= SURFACE_H - self.view_h:  # (unless she has climbed above the screen)
             return clamp(SURFACE_H - self.view_h, 0, self.max_cam_y())
         # Dead zone: the camera only scrolls when the duck gets within `buf` rows of an edge.
         # Jumps don't scroll it; the floor she stands on (or falls past) does.
@@ -1626,13 +1813,13 @@ class World:
         return self.flood is not None and self.flood <= self.feet - 2  # her head is under
 
     def on_cloud(self):
-        if self.level != 7 or self.airborne or self.drowned is not None:
+        if self.level != 10 or self.airborne or self.drowned is not None:
             return False
         return any(m.get("cloud") and self.feet == m["floor"] and m["x0"] <= self.center() < m["x0"] + m["w"] for m in self.movers)
 
     def spawn_cloud(self):
-        """Level 7: a cloud (a sliding ledge) drifts in from the right once the rain starts."""
-        if self.level != 7 or self.movers:
+        """Level 10: a cloud (a sliding ledge) drifts in from the right once the rain starts."""
+        if self.level != 10 or self.movers:
             return
         m = {"x0": CLOUD_CFG["lo"], "w": CLOUD_CFG["w"], "floor": CLOUD_FLOOR, "lo": CLOUD_CFG["lo"], "hi": CLOUD_CFG["hi"], "step": CLOUD_CFG["step"], "dir": 1,
              "next": 0.0, "cloud": True}
@@ -1757,12 +1944,12 @@ class World:
             self.packs += place_packs(1)
 
     def update_chamber(self, now):
-        """The pink gem secrets: level 1's patch drops her into a cavern, level 2 hides ledges that appear under her feet."""
-        if self.hidden and not self.airborne:
+        """The pink gem secrets: level 1's patch drops her into a cavern, level 4 hides ledges that appear under her feet."""
+        if self.hidden and self.level not in REVEALED_LEVELS and not self.airborne:
             for p in self.hidden:
                 if p not in self.revealed and p[2] == self.feet and p[0] <= self.center() <= p[1]:
                     self.revealed[p] = (now, self.center())
-        if self.level == 4 and not self.secret_shown and not self.airborne and self.feet == SUMMIT and self.center() >= SECRET_TRIGGER:
+        if self.level == 6 and not self.secret_shown and not self.airborne and self.feet == SUMMIT and self.center() >= SECRET_TRIGGER:
             self.show_secret_mushroom(now)
         if self.mermaid_cave:
             if self.mermaid_t0 is None and not self.airborne and self.feet == CH_FLOOR:
@@ -1784,6 +1971,16 @@ class World:
             self.feet = GROUND + 1
             self.notice = ("You fell through the grass!", now + NOTICE_TIME)
 
+    def quack_secret(self, now):
+        """Level 2: a full chorus on top of a hill makes that hill's hidden ledge appear."""
+        if self.level != 2 or self.airborne:
+            return
+        for (x0, x1, floor), p in zip(LEVEL2_TOPS, self.hidden):
+            if p not in self.revealed and self.feet == floor and x0 <= self.center() <= x1:
+                self.revealed[p] = (now, self.center())
+                add_platform(p)
+                self.notice = ("A hidden ledge appears!" if len(self.revealed) < len(self.hidden) else "Another ledge appears high above the first... something glitters!", now + NOTICE_TIME)
+
     def show_secret_mushroom(self, now):
         self.secret_shown = True
         MUSHROOMS.append(SECRET_MUSHROOM)
@@ -1795,9 +1992,11 @@ class World:
             return self.feet > GROUND
         if self.level == MERMAID_LEVEL:
             return self.room_open is not None
-        if self.level == 4:
+        if self.level == 6:
             return self.secret_shown
-        if self.level == 7:
+        if self.level in REVEALED_LEVELS:
+            return len(self.revealed) == len(self.hidden)
+        if self.level == 10:
             return bool(self.movers) and self.cloud_boarded  # appears once she has jumped onto the cloud
         return self.hidden[GEM_APPEARS_AFTER - 1] in self.revealed
 
@@ -1830,7 +2029,7 @@ class World:
                 pea["x"] += pea["dir"]
                 pea["left"] -= 1
                 pea["next"] = now + PEA_STEP
-            if pea["left"] <= 0 or not 0 <= pea["x"] < WORLD_W or self.pea_hits(pea, now) or self.pea_hits_enemy(pea, now):
+            if pea["left"] <= 0 or not 0 <= pea["x"] < WORLD_W or self.pea_hits(pea, now) or self.pea_hits_duck(pea, now) or self.pea_hits_enemy(pea, now):
                 continue
             live.append(pea)
         self.peas = live
@@ -1862,8 +2061,21 @@ class World:
                              "born": now, "step": 0, "phase": random.uniform(0, 2 * math.pi)})
 
     def enemy_box(self, e):
-        top = e["y"] - 2 if e["kind"] == "beetle" else e["y"]
-        return e["x"], e["x"] + ENEMY_W - 1, top, e["y"]
+        top = {"beetle": e["y"] - 2, "hedgehog": e["y"] - 2, "armadillo": e["y"] - 2, "mite": e["y"] - 1}.get(e["kind"], e["y"])
+        return e["x"], e["x"] + (MITE_W if e["kind"] == "mite" else ENEMY_W) - 1, top, e["y"]
+
+    def stun_mites(self, now):
+        """A quack freezes every mite near enough to hear it."""
+        for e in self.enemies:
+            if e["kind"] == "mite" and abs(e["x"] + MITE_W // 2 - self.center()) <= STUN_RANGE and abs(e["y"] - self.feet) <= STUN_ROWS:
+                e["stun"] = now + STUN_TIME
+                self.unlock("stun", now)
+        self.max_stunned = max(self.max_stunned, sum(e["kind"] == "mite" and e.get("stun", 0) > now for e in self.enemies))
+        if self.level == 3 and sum(e["kind"] == "mite" and e.get("stun", 0) > now for e in self.enemies) >= MITES_FOR_SECRET and not self.revealed:
+            for p in self.hidden:
+                self.revealed[p] = (now, self.center())
+                add_platform(p)
+            self.notice = ("Hidden ledges appear above the second hill!", now + NOTICE_TIME)
 
     def update_enemies(self, now):
         beetles = sum(e["kind"] == "beetle" for e in self.enemies)
@@ -1880,9 +2092,11 @@ class World:
         for e in self.enemies:
             if now >= e["next"]:
                 e["step"] += 1
-                if e["kind"] == "beetle":
-                    e["next"] = now + 0.25
-                    e["x"] += e["dir"]
+                if e["kind"] == "hedgehog":
+                    self.step_hedgehog(e, now)
+                elif e["kind"] != "bat":
+                    e["next"] = now + (MITE_STEP if e["kind"] == "mite" else 0.25)
+                    e["x"] += e["dir"] if now >= e.get("stun", 0.0) else 0  # a stunned mite stays put
                     if not e["lo"] <= e["x"] <= e["hi"]:
                         e["x"] = clamp(e["x"], e["lo"], e["hi"])
                         e["dir"] = -e["dir"]
@@ -1904,6 +2118,25 @@ class World:
         if self.fullness > HUNGRY_BELOW:
             self.health = min(MAX_HEALTH, self.health + REGEN_PER_SEC * dt)
 
+    def step_hedgehog(self, e, now):
+        """Walks uphill, curls at the top, rolls back down, stays curled for a moment, then uncurls."""
+        up, state = e["up"], e["state"]
+        top, bottom = (e["hi"], e["lo"]) if up > 0 else (e["lo"], e["hi"])
+        if state == "walk":
+            e["x"] += up
+            e["next"] = now + HEDGEHOG_WALK_STEP
+            if (e["x"] - top) * up >= 0:
+                e["x"], e["state"], e["next"] = top, "curl", now + HEDGEHOG_CURL_TIME
+        elif state == "curl":
+            e["state"], e["dir"], e["next"] = "roll", -up, now + HEDGEHOG_ROLL_STEP
+        elif state == "roll":
+            e["x"] -= up
+            e["next"] = now + HEDGEHOG_ROLL_STEP
+            if (e["x"] - bottom) * up <= 0:
+                e["x"], e["state"], e["next"] = bottom, "ball", now + HEDGEHOG_BALL_TIME
+        else:
+            e["state"], e["dir"], e["next"] = "walk", up, now + HEDGEHOG_WALK_STEP
+
     def body_spans(self):
         """The duck's silhouette as {row: (left, right)}: just the body, not the hat or the empty corners of its box."""
         crouch = self.sitting and not self.in_pond()
@@ -1920,21 +2153,48 @@ class World:
             return
         spans = self.body_spans()
         for e in self.enemies:
+            if now < e.get("stun", 0.0):
+                continue  # stunned mites are harmless
             x0, x1, y0, y1 = self.enemy_box(e)
             if any(y0 <= y <= y1 and x0 <= right and x1 >= left for y, (left, right) in spans.items()):
-                self.health -= BEETLE_DAMAGE if e["kind"] == "beetle" else BAT_DAMAGE
-                self.invuln_until = now + HIT_INVULN
-                if self.health <= 0:
-                    self.health, self.invuln_until = MAX_HEALTH, now + 3.0
-                    self.lose_life("Knocked out!")
-                else:
-                    self.notice = ("Ouch!", now + 1.0)
+                self.hurt(now, {"beetle": BEETLE_DAMAGE, "hedgehog": BEETLE_DAMAGE, "armadillo": BEETLE_DAMAGE, "mite": MITE_DAMAGE}.get(e["kind"], BAT_DAMAGE))
                 return
+
+    def hurt(self, now, damage):
+        self.health -= damage
+        self.invuln_until = now + HIT_INVULN
+        if self.health <= 0:
+            self.health, self.invuln_until = MAX_HEALTH, now + 3.0
+            self.lose_life("Knocked out!")
+        else:
+            self.notice = ("Ouch!", now + 1.0)
+
+    def pea_hits_duck(self, pea, now):
+        """A pea that bounced off an armadillo's armor hurts the duck it flies back to (sitting or jumping gets under it)."""
+        if not pea.get("hostile") or self.depth or now < self.invuln_until:
+            return False
+        span = self.body_spans().get(pea["y"])
+        if span and span[0] <= pea["x"] <= span[1]:
+            self.hurt(now, ARMADILLO_HIT_DAMAGE)
+            return True
+        return False
 
     def pea_hits_enemy(self, pea, now):
         for e in self.enemies:
             x0, x1, y0, y1 = self.enemy_box(e)
             if x0 <= pea["x"] <= x1 and y0 - 1 <= pea["y"] <= y1 + 1:
+                armored = e["kind"] == "armadillo" and pea["dir"] != e["dir"]  # only a pea flying the way it faces (from behind) gets through
+                if armored or (e["kind"] == "hedgehog" and e["state"] != "walk"):
+                    if not pea.get("bounced"):
+                        pea["dir"], pea["bounced"] = -pea["dir"], True
+                        if armored:
+                            pea["hostile"] = True
+                        else:
+                            pea["left"] = min(pea["left"], 4)
+                            self.notice = ("Ping! Wait for it to uncurl", now + 1.5)
+                    continue
+                if pea.get("bounced") and e["kind"] in ("hedgehog", "armadillo"):
+                    continue
                 e["hp"] -= 1
                 if e["hp"] <= 0:
                     self.enemies.remove(e)
@@ -2140,8 +2400,10 @@ class World:
                 self.cheer(QUACK_HAPPINESS, now)
                 if count == MAX_QUACKS:
                     self.unlock("chorus", now)
+                    self.quack_secret(now)
                 if not self.muted:
                     self.events.append("quack")
+                self.stun_mites(now)
                 for chick in self.young:  # the chicks react to the noise
                     if random.random() < 0.5:
                         chick["peep_text"] = random.choice(("peep!", "chirp!", "!"))
@@ -2639,8 +2901,8 @@ class World:
                 put(x, GROUND + 1, "-~"[int(age * 14 + x) % 2], C_GRASS)
 
     def draw_hidden(self, put, now):
-        """Level 2's invisible ledges spread out from where she landed, with a sparkle at the leading edge."""
-        if not self.gem_taken and self.hidden[GEM_APPEARS_AFTER - 1] in self.revealed:
+        """Level 4's invisible ledges spread out from where she landed, with a sparkle at the leading edge."""
+        if not self.gem_taken and self.gem_visible():
             put(GEM_SPOTS[self.level][0], GEM_SPOTS[self.level][1], GEM, C_GEM if int(now * 3) % 2 else "95")
         for p, (t0, cx) in self.revealed.items():
             reach = (now - t0) * REVEAL_SPEED
@@ -2651,7 +2913,7 @@ class World:
                     put(x, p[2] + 1, "*", C_STAR)
 
     def draw_cavern(self, put, now):
-        """The rock under the grass with the cavern carved out of it (levels 1 and 5; only drawn once the camera has scrolled down)."""
+        """The rock under the grass with the cavern carved out of it (levels 1 and 7; only drawn once the camera has scrolled down)."""
         mer = self.level == MERMAID_LEVEL
         x0, x1 = (MER_X0, MER_X1) if mer else (CH_X0, CH_X1)
         gx, gy = GEM_SPOTS[self.level]
@@ -2681,7 +2943,7 @@ class World:
                     put(x, y, "#", C_ROCK)
 
     def draw_birds(self, put, now):
-        """Flocks of birds cross the sky (levels 1 and 2): (every seconds, crossing seconds, time offset, row, direction)."""
+        """Flocks of birds cross the sky (levels 1 and 4): (every seconds, crossing seconds, time offset, row, direction)."""
         for period, cross, offset, row, direction in BIRD_FLOCKS[self.level]:
             t = (now + offset) % period
             if t < cross:
@@ -2794,30 +3056,45 @@ class World:
         for x0, floor in MUSHROOMS:
             squashed = now - self.plunged.get((x0, floor), -9) < MUSH_PLUNGE
             put_sprite(x0, floor, MUSHROOM_SQUASHED if squashed else MUSHROOM, lambda dy, dx, ch: C_MUSHROOM if dy == 0 else "97")
-        if self.level == 7 and self.gem_visible() and not self.gem_taken:
-            put(*GEM_SPOTS[7], GEM, C_GEM if int(now * 3) % 2 else "95")
-        if self.level == 4 and self.secret_shown and not self.gem_taken:
+        if self.level == 10 and self.gem_visible() and not self.gem_taken:
+            put(*GEM_SPOTS[10], GEM, C_GEM if int(now * 3) % 2 else "95")
+        if self.level == 6 and self.secret_shown and not self.gem_taken:
             put(*SECRET_GEM, GEM, C_GEM if int(now * 3) % 2 else "95")
         if self.wind and now >= self.wind["start"]:
             for k in range(40):  # streaks race past, leaving the hint column on the left readable
                 row = 2 + (k * 7) % (WIND_ROW - 1)
                 x = 45 + int(k * 41 + (now - self.wind["start"]) * 45 * self.wind["dir"]) % (WORLD_W - 49)
                 put_text(x, row, "~~~~", C_WIND)
-        for x, y in self.coins:
-            put(x, y, COIN, C_COIN)
-        for key, (x, y) in self.item_spots.items():
-            put_text(x - 1, y, ITEMS[key][1], C_ITEM)
-        for x, y in self.packs:
-            put_text(x - 1, y, "(o)", C_PEA)
         for e in self.enemies:
             if e["kind"] == "beetle":
                 flinch = e.get("hit", 0) > now
                 eyes = BEETLE_FLINCH if flinch else BEETLE_HURT_EYES[min(BEETLE_HP - e["hp"], len(BEETLE_HURT_EYES) - 1)]
                 put_sprite(e["x"], e["y"], [BEETLE_TOP[0], eyes, BEETLE_LEGS[e["step"] % 2]], "1;97" if flinch else C_BEETLE)
+            elif e["kind"] == "hedgehog":
+                flinch = e.get("hit", 0) > now
+                if e["state"] in ("roll", "ball"):
+                    lines = HEDGEHOG_BALL[e["step"] % 2 if e["state"] == "roll" else 0]
+                else:
+                    lines = HEDGEHOG_CURLING if e["state"] == "curl" else sprite(HEDGEHOG_WALK, e["dir"])
+                put_sprite(e["x"], e["y"], lines, "1;97" if flinch else C_HEDGEHOG)
+            elif e["kind"] == "armadillo":
+                flinch = e.get("hit", 0) > now
+                put_sprite(e["x"], e["y"], sprite(ARMADILLO[e["step"] % 2], e["dir"]), "93" if flinch else C_ARMADILLO)
+            elif e["kind"] == "mite":
+                stunned = now < e["stun"]
+                put_sprite(e["x"], e["y"], [MITE_STUNNED if stunned else MITE_TOP, MITE_LEGS[0] if stunned else MITE_LEGS[e["step"] % 2]], "93" if stunned else C_MITE)
+                if stunned:
+                    put_text(e["x"], e["y"] - 2, MITE_STARS[int(now * 4) % 2], "93")
             else:
                 put_text(e["x"], e["y"], BAT_FRAMES[int(now * 8) % 2], C_BAT)
+        for key, (x, y) in self.item_spots.items():
+            put_text(x - 1, y, ITEMS[key][1], C_ITEM)
+        for x, y in self.packs:
+            put_text(x - 1, y, "(o)", C_PEA)
+        for x, y in self.coins:  # after the enemies: put() keeps whatever was drawn first, so enemies cover coins
+            put(x, y, COIN, C_COIN)
         for pea in self.peas:
-            put(pea["x"], pea["y"], "o", C_PEA)
+            put(pea["x"], pea["y"], "o", C_BOUNCED if pea.get("hostile") else C_PEA)
 
         for f in self.friends:
             if f["kind"] == "butterfly":
@@ -2869,7 +3146,7 @@ class World:
 
         lo, hi = int(self.cam) - 12, int(self.cam) + self.view_w + 12  # only draw what the camera can see
         for m in self.movers:  # sliding ledges are drawn first so they pass in front of trees
-            glint = self.level == 3 and m is self.movers[1] and self.hidden[0] not in self.revealed and not self.airborne \
+            glint = self.level == 5 and m is self.movers[1] and self.hidden[0] not in self.revealed and not self.airborne \
                 and self.feet == m["floor"] and m["x0"] <= self.center() <= m["x0"] + 3  # hint: its left 4 = glow faintly under her feet
             for x in range(max(m["x0"], lo), min(m["x0"] + m["w"] - 1, hi) + 1):
                 glow = glint and 0 <= x - m["x0"] - int(now * 0.8) % 3 <= 1
@@ -2943,7 +3220,7 @@ class World:
         for x, row, text in HINTS_BY_LEVEL.get(self.level, ()):
             put_text(x, row, text, C_HINT)
 
-        if self.level == 2:
+        if self.level == 4:
             self.draw_birds(put, now)  # after the hints so the birds never cover them
         if self.level == 1:
             self.draw_level1_decor(put, now)
@@ -3056,7 +3333,7 @@ class World:
             width = max(len(e) for e in entries)
             rows = ["TEST MENU".center(width), ""] + entries
             rows += ["", "up/down  space: toggle".center(width),
-                     "1-9, 0 (10), - (11): jump to that level".center(width), "T / esc: close".center(width)]
+                     "1-9, 0 (10), - (11), = (12), \\ (13), ] (14): jump to that level".center(width), "T / esc: close".center(width)]
             overlay(["+" + "-" * (width + 2) + "+"] + [f"| {row.ljust(width)} |" for row in rows]
                     + ["+" + "-" * (width + 2) + "+"], C_ACHIEVEMENT)
         elif self.show_inventory:
@@ -3174,14 +3451,14 @@ class Input:
 
 
 HELP_LEVEL1 = ["Space: quack   Left/Right: walk   Up: jump   Down: sit / drop through a ledge   a: achievements   r: restart   p: pause   q / x / Esc: exit", ""]
-HELP_LEVELS_2_TO_6 = ["Space: quack (shoot with the pea-shooter)   Left/Right: walk   Down: sit/float/dive   Up: jump/glide/surface",
+HELP_LEVELS_4_TO_8 = ["Space: quack (shoot with the pea-shooter)   Left/Right: walk   Down: sit/float/dive   Up: jump/glide/surface",
                       "i: inventory   m: mute   w: weather   a: achievements   r: restart level   p: pause   q / x / Esc: exit"]
 HELP = ["Space: quack (shoot with the pea-shooter)   Left/Right: walk (Shift: run)   Down: sit/float/dive   Up: jump/glide/surface   f: feed   h: hat",
         "i: inventory   m: mute   w: weather   a: achievements   r: restart level   p: pause   q / x / Esc: exit"]
 
 
 def draw_help(cols, level):
-    for i, line in enumerate(HELP_LEVEL1 if level == 1 else HELP if level == LAST_LEVEL else HELP_LEVELS_2_TO_6):
+    for i, line in enumerate(HELP_LEVEL1 if level == 1 else HELP if level == LAST_LEVEL else HELP_LEVELS_4_TO_8):
         sys.stdout.write(f"\x1b[{i + 1};1H\x1b[K{line[:cols]}")
 
 
@@ -3506,6 +3783,12 @@ def main():
             shift_rows(saved, SKY_MORE)
             if level == 6:
                 saved = None  # level 6 got taller, so an old save of it no longer fits; it starts over
+        if saved and saved.get("version", 1) < 15 and level >= 2:
+            level += 1  # the mite level was inserted as level 2
+        if saved and saved.get("version", 1) < 16 and level >= 2:
+            level += 1  # the small stunning level was inserted as level 2
+        if saved and saved.get("version", 1) < 17 and level >= 9:
+            level += 1  # the hedgehog level was inserted as level 9
         world = World(time.monotonic(), level if level in LEVEL_ACHIEVEMENTS else 1)
         if saved:
             try:
